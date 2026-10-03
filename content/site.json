@@ -1,0 +1,128 @@
+{
+  "identity": {
+    "name": "Ahmed Amhdour",
+    "firstName": "Ahmed",
+    "title": "AI Security Engineer",
+    "heroDescription": "Working toward securing AI applications, RAG systems and tool-using agents through practical learning and evidence-based security engineering.",
+    "about": "I’m Ahmed, an aspiring AI Security Engineer focused on AI Application & Product Security. My goal is to develop the skills to protect AI applications, retrieval-augmented generation systems and tool-using agents. My learning plan emphasizes authorization, data privacy, prompt injection, secure tool execution, security evaluation and reliable operations. I aim to turn this work into reproducible case studies that explain the problem, the control, the evidence and the remaining limitations."
+  },
+  "metadata": {
+    "title": "Ahmed Amhdour — AI Security Engineer",
+    "description": "Ahmed Amhdour’s AI security portfolio: planned case studies in AI application security, RAG security, agent security, evaluation, privacy and secure operations.",
+    "socialTitle": "Ahmed Amhdour — AI Security Engineer",
+    "socialDescription": "Evidence-first AI security learning portfolio focused on AI applications, RAG systems and tool-using agents."
+  },
+  "focusAreas": [
+    {
+      "title": "AI application authorization and privacy",
+      "description": "Learning to trace identity, object ownership, session state, revocation and sensitive-data flows so authority stays at the responsible service boundary.",
+      "missions": ["M01", "M02", "M05", "M06", "M10", "M28"]
+    },
+    {
+      "title": "RAG ingestion, retrieval and data lifecycle",
+      "description": "Studying provenance, permission-aware retrieval, stale access, memory boundaries, deletion and the lifecycle of derived copies such as indexes and caches.",
+      "missions": ["M03", "M08", "M09", "M10", "M17", "M28"]
+    },
+    {
+      "title": "MCP, agent permissions and secure tool execution",
+      "description": "Focusing on user-scoped consent, task-bound authority, exact approvals, destination policy, retries, idempotency and independently verifiable effects.",
+      "missions": ["M11", "M12", "M13", "M14", "M27", "M34"]
+    },
+    {
+      "title": "Prompt-injection and security regression evaluation",
+      "description": "Designing bounded attack and legitimate-task cases, effect-level oracles, evaluator validation and repeatable release gates without treating model self-reports as ground truth.",
+      "missions": ["M15", "M16", "M24", "M35"]
+    },
+    {
+      "title": "Secure delivery, telemetry and incident recovery",
+      "description": "Connecting provenance, audit events, detection, containment, rollback, reconciliation and handover so controls remain understandable after change or failure.",
+      "missions": ["M21", "M22", "M25", "M26", "M29", "M30"]
+    }
+  ],
+  "skills": [
+    {"name": "Python", "missions": ["M01", "M03", "M05", "M35"], "note": "Learning area"},
+    {"name": "HTTP / API security", "missions": ["M02", "M06", "M13", "M14"], "note": "Learning area"},
+    {"name": "Git and source reasoning", "missions": ["M01", "M21", "M29", "M35"], "note": "Learning area"},
+    {"name": "Authentication / OAuth", "missions": ["M02", "M06", "M11", "M12"], "note": "Learning area"},
+    {"name": "Docker and configuration", "missions": ["M04", "M18", "M21", "M29"], "note": "Learning area"},
+    {"name": "RAG security", "missions": ["M08", "M09", "M10", "M17", "M28"], "note": "Learning area"},
+    {"name": "MCP and tool security", "missions": ["M11", "M12", "M13", "M14", "M27"], "note": "Learning area"},
+    {"name": "Threat modeling", "missions": ["M01", "M15", "M36"], "note": "Learning area"},
+    {"name": "Security evaluation", "missions": ["M24", "M31", "M33", "M35"], "note": "Learning area"},
+    {"name": "Security reporting and handover", "missions": ["M22", "M26", "M30", "M40"], "note": "Learning area"}
+  ],
+  "learningJourney": {
+    "intro": "Mission IDs are stable learning references, not months or fixed completion dates. Progress advances when prerequisites and evidence gates are satisfied.",
+    "foundation": [
+      {
+        "mission": "M01",
+        "title": "Threat model and security requirements",
+        "description": "Establish the system boundary, assets, authority transitions, threats, testable requirements and evidence plan before adding specialized work."
+      },
+      {
+        "mission": "M02",
+        "title": "API ownership and authorization",
+        "description": "Trace caller, object and action checks; compare permitted and denied cases; distinguish ordinary ownership from sharing, administration and tenancy."
+      },
+      {
+        "mission": "M03",
+        "title": "Secure uploads and file handling",
+        "description": "Study size and parser boundaries, ownership, failure cleanup, artifact state and recoverability while keeping fixtures bounded and synthetic."
+      },
+      {
+        "mission": "M04",
+        "title": "Configuration and secrets",
+        "description": "Map listeners, privileges, secrets, destinations, rotation and effective configuration before making runtime or isolation claims."
+      },
+      {
+        "mission": "M05",
+        "title": "Data-flow and privacy analysis",
+        "description": "Trace sensitive fields to model, tool and log sinks, define minimization rules and verify allowed and denied data flows with deterministic evidence."
+      }
+    ],
+    "tracks": [
+      {
+        "title": "Application & Product Security",
+        "missions": "M01–M30, then M35–M36",
+        "description": "Authorization, data and action boundaries; secure delivery, operations, durable security tooling and supplier decisions.",
+        "optional": false,
+        "prerequisite": "Build on M01–M05 and the specific identity, data or action prerequisites of each mission."
+      },
+      {
+        "title": "Agent Application Security",
+        "missions": "Relevant M01–M30 foundations, then M34; M38/M39 when required",
+        "description": "Peer identity, delegation, approvals, effect containment and safe stopping; add computer-use or malicious-use controls only when the target responsibility needs them.",
+        "optional": false,
+        "prerequisite": "Requires the applicable authorization, MCP/action and incident-evidence foundations before peer or executor claims."
+      },
+      {
+        "title": "Model & Training Security",
+        "missions": "M01/M05/M21/M24, then M31 → M32 → M33",
+        "description": "Robustness, training/artifact trust and model-privacy experiments grounded in known synthetic data and held-out evaluation.",
+        "optional": true,
+        "prerequisite": "Requires ML/statistics foundations, a pinned real small model or trainer, valid splits and a declared attacker/output contract."
+      },
+      {
+        "title": "Inference Platform Security",
+        "missions": "M04/M14/M18–M21/M24/M29, then M37",
+        "description": "Serving-engine management, worker, artifact and cache boundaries when an actual engine and suitable resources are available.",
+        "optional": true,
+        "prerequisite": "Native runtime evidence is gated on the selected engine/build, hardware/resources and actual management/worker/cache architecture."
+      },
+      {
+        "title": "Security Program Ownership",
+        "missions": "M22/M25/M26/M30/M35/M36, then M40",
+        "description": "Evidence-backed intake, decisions, maintenance, recurrence prevention and cross-product operating practice.",
+        "optional": true,
+        "prerequisite": "Senior production ownership is not created by a synthetic exercise; real responsibility requires real accountable roles and operating evidence."
+      }
+    ]
+  },
+  "contact": {
+    "github": "https://github.com/lahcennh3-jpg",
+    "email": null,
+    "linkedin": null,
+    "resume": null,
+    "profilePhoto": null
+  }
+}

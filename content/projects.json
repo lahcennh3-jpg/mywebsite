@@ -1,0 +1,415 @@
+[
+  {
+    "slot": "C01",
+    "title": "Identity, Authorization & Revocation",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M01", "M02", "M06", "M10"],
+    "tags": ["Authorization", "Identity", "Revocation"],
+    "purpose": "Plan an evidence-backed study of caller identity, object ownership, authentication state and revocation so private AI-application data and actions remain bound to current authority.",
+    "productNeed": "Users need private projects and sessions to stay private while intended sharing, administration and offboarding continue to work correctly.",
+    "securityObjective": "Place authorization at authoritative API and data boundaries, distinguish ownership from roles and sharing, and make revoked authority stop taking effect across pending work.",
+    "scope": "Trace one caller-to-object path, one authentication/session path and one revocation transition. Use source/design evidence first, then a bounded local relation fixture or native runtime only when the required execution scope is available.",
+    "dependencies": [
+      "M01 threat-model foundation",
+      "HTTP/API and database authorization basics",
+      "Authentication/OAuth and session-state basics",
+      "Applicable local runtime, identities and written execution scope before native tests"
+    ],
+    "boundaries": [
+      "Caller identity → API/session boundary",
+      "API handler → authoritative object ownership or permission check",
+      "Current session/revocation state → pending or repeated operation"
+    ],
+    "investigation": "Trace caller, object and role arguments from request entry to the responsible control. Write expected owner, other-user, intended-share, admin and revoked-session outcomes before any permitted test.",
+    "control": "Require current caller/object authorization at authoritative reads and writes; keep sharing/admin logic explicit; re-check revocation where delayed work or stale state can outlive an earlier decision.",
+    "permittedCases": [
+      "Owner accesses the intended private object",
+      "Explicitly permitted share or admin path behaves according to its declared policy"
+    ],
+    "deniedCases": [
+      "Unrelated user reads or changes a private object",
+      "Revoked or stale identity continues a protected operation"
+    ],
+    "evidencePlan": [
+      "Pinned source trace and caller/object/action matrix",
+      "Dated allowed/denied predictions",
+      "Raw bounded request or fixture receipts only when executed",
+      "Revocation timeline, remediation/retest record and reviewer decision when available"
+    ],
+    "evaluationCriteria": [
+      "Legitimate owner and intended-share behavior remains available",
+      "Unrelated-user and revoked-state cases deny without unauthorized state change",
+      "Runtime claims require source/build/configuration parity and raw evidence"
+    ],
+    "remediationRetest": "Propose or review the authoritative check, then retest both the denied path and legitimate access. Add minimal actor/object/action decision telemetry and transfer the same invariant to a second route or product.",
+    "recoveryTransfer": "Contain the affected route or grant, restore the approved authorization state after retest, preserve evidence, and repeat the principle on an unfamiliar authorization representation.",
+    "limitations": [
+      "No native security result, confirmed vulnerability or reviewer acceptance is claimed.",
+      "Source/design work cannot by itself prove deployed runtime behavior.",
+      "Ownership, sharing, administration and tenancy remain separate policy questions."
+    ]
+  },
+  {
+    "slot": "C02",
+    "title": "Secure RAG & Data Lifecycle",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M03", "M08", "M09", "M17", "M28"],
+    "tags": ["RAG Security", "Data Lifecycle", "Privacy"],
+    "purpose": "Plan a case study covering trustworthy ingestion, permission-aware retrieval, memory boundaries and deletion across source data and derived copies.",
+    "productNeed": "A knowledge assistant should ingest changing documents, retrieve only currently authorized content, preserve provenance and remove or restore data according to a documented lifecycle.",
+    "securityObjective": "Keep permissions and provenance intact across upload, ingestion, indexing, retrieval, memory, caches and deletion instead of treating RAG as one undifferentiated step.",
+    "scope": "Trace one upload/ingestion path, one permission-aware retrieval path and one lifecycle transition. A synthetic retriever or fixture may support mechanism learning; native ACL claims remain gated by the actual edition, configuration and runtime.",
+    "dependencies": [
+      "M03 upload and parser boundary understanding",
+      "M05 data-flow analysis",
+      "RAG ingestion, indexing and retrieval fundamentals",
+      "Native Standard/permission prerequisites where the selected product path requires them"
+    ],
+    "boundaries": [
+      "Source document → ingestion/provenance metadata",
+      "Current user/group authority → retrieval filter → selected context",
+      "Stored source/memory → index/cache/backup copies → deletion or restoration"
+    ],
+    "investigation": "Map each copy and permission transition, predict permitted and denied retrieval, introduce only synthetic provenance changes, and trace how revocation, memory state or deletion should alter later context.",
+    "control": "Validate ownership and provenance at ingestion, apply current authorization at retrieval, keep memory consent/provenance explicit and maintain a data-copy ledger with deletion/recovery criteria.",
+    "permittedCases": [
+      "Authorized user retrieves an eligible document with expected provenance",
+      "Approved data survives a legitimate update or restore according to the declared policy"
+    ],
+    "deniedCases": [
+      "Unauthorized or stale-permission document appears in retrieved context",
+      "Deleted or disallowed content remains available from an unaccounted derived copy"
+    ],
+    "evidencePlan": [
+      "Ingestion provenance ledger and data-copy map",
+      "Retrieval authorization matrix and selected-context receipts when run",
+      "Memory consent/provenance record and deletion/restore criteria",
+      "Explicit native-versus-fixture attribution for every observation"
+    ],
+    "evaluationCriteria": [
+      "Allowed retrieval stays useful and provenance remains traceable",
+      "Denied or revoked content does not appear in the observed context under the declared scope",
+      "Deletion/recovery checks enumerate indexes, caches, memory and backup assumptions rather than hiding gaps"
+    ],
+    "remediationRetest": "Move permission checks to current authoritative state, quarantine or reprocess suspect ingestion, reconcile stale derived copies and rerun both permitted retrieval and denied/deleted cases.",
+    "recoveryTransfer": "Document reindex/reconciliation steps, ownership of restored copies and revalidation triggers; transfer the invariant to a second retriever or data architecture without assuming identical ACL semantics.",
+    "limitations": [
+      "Native connected-document ACL behavior is not claimed without the required product entitlement and runtime evidence.",
+      "A local fixture demonstrates only its own authorization and lifecycle behavior.",
+      "No production data, real connector account or external provider is included."
+    ]
+  },
+  {
+    "slot": "C03",
+    "title": "MCP & Agent Action Security",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M11", "M12", "M13", "M14", "M15", "M27", "M34"],
+    "tags": ["MCP", "Agent Security", "Tool Authorization"],
+    "purpose": "Plan a bounded agent-security study that binds identity, consent, delegated task, tool arguments and the actual side effect instead of treating model intent as authority.",
+    "productNeed": "Tool-using agents need to call local MCP or action services without turning retrieved or tool-supplied text into permission, leaking credentials or duplicating effects after failure.",
+    "securityObjective": "Constrain outbound identity and destinations, approve exact actions, re-check current authority at the effect service, and make retries, cancellation and peer delegation observable and recoverable.",
+    "scope": "Study one MCP/action flow and one local effect type, then add a small peer/delegation fixture for M34. Prompt-injection evaluation is measured at the effect/data boundary, not by suspicious wording alone.",
+    "dependencies": [
+      "M04/M06 configuration, secrets and identity foundations",
+      "M11 MCP/OAuth concepts before action or peer claims",
+      "M13 action-authorization contract before prompt-injection effect tests",
+      "Applicable local transport and authorization scope"
+    ],
+    "boundaries": [
+      "User → selected MCP/action credential and destination",
+      "Proposal → exact approval → current effect-service authorization",
+      "Peer task/delegation → stop/replay/reconciliation state"
+    ],
+    "investigation": "Trace credential selection, audience/destination, task and argument binding. Run or design legitimate, changed-argument, expired, replay, response-loss and hostile-input cases against a synthetic effect ledger.",
+    "control": "Use task-scoped identity and consent, destination policy, exact approval records, current effect authorization, idempotency keys, stop/cancel semantics and authoritative effect receipts.",
+    "permittedCases": [
+      "Authorized task with exact approved arguments creates the intended synthetic effect once",
+      "Legitimate retry reconciles a previously completed effect without duplication"
+    ],
+    "deniedCases": [
+      "Changed arguments, wrong caller/task, expired approval or unapproved destination reaches the effect",
+      "Hostile retrieved/tool text causes a forbidden action or peer delegation"
+    ],
+    "evidencePlan": [
+      "Outbound/inbound identity and consent matrix",
+      "Tool-policy contract and exact approval records",
+      "Synthetic effect receipts for allowed, denied, retry and stop cases",
+      "Prompt-injection corpus with outcome measured from authoritative state"
+    ],
+    "evaluationCriteria": [
+      "Security outcome is determined by actual effect/data state rather than model claims",
+      "Legitimate actions remain usable while wrong task/caller/arguments deny",
+      "Response loss, replay and cancellation produce explainable, reconcilable state"
+    ],
+    "remediationRetest": "Tighten the authoritative task/argument/destination check or retry contract, then rerun legitimate, denied and fault cases while validating the actual effect ledger.",
+    "recoveryTransfer": "Stop the local effect path, reconcile uncertain completion, rotate only synthetic credentials if needed, and transfer the same task/effect invariant to a second action or peer surface.",
+    "limitations": [
+      "No real external MCP server, SaaS account, payment, message or provider attack is included.",
+      "General native multi-agent capability is not assumed; added peers remain explicitly fixture/extension work.",
+      "Model behavior claims require an actual declared model and separate evaluation manifest."
+    ]
+  },
+  {
+    "slot": "C04",
+    "title": "Sandbox & Supply Chain Controls",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M04", "M18", "M19", "M21", "M29", "M35"],
+    "tags": ["Sandbox", "Supply Chain", "Secure Delivery"],
+    "purpose": "Plan one deliberately narrow study: one executor boundary plus one related artifact-integrity or analysis gate, with native runtime prerequisites kept explicit.",
+    "productNeed": "An AI application that executes code or produces artifacts needs a clearly bounded executor and a trustworthy way to decide which related image, dependency or artifact is allowed to run or ship.",
+    "securityObjective": "Verify a single isolation boundary and a single artifact/provenance decision without implying a complete sandbox, host, supply-chain or platform audit.",
+    "scope": "One executor boundary only (for example filesystem/network/process capability) and one related artifact question (for example image/dependency digest, provenance or a narrow analyzer rule). No second executor or broad platform review is included.",
+    "dependencies": [
+      "Resolved executor backend/image and exact runtime identity",
+      "Known host/kernel/container capabilities and effective network/filesystem policy",
+      "Pinned artifact/dependency identity and declared trust root",
+      "Applicable authorization and resources for any native isolation test"
+    ],
+    "boundaries": [
+      "AI/application request → selected executor capability boundary",
+      "Pinned artifact or dependency → verification/analyzer gate → promotion/update decision"
+    ],
+    "investigation": "Review the executor contract and choose one benign isolation case plus one denied capability case. Separately verify one artifact identity/provenance or narrow analysis rule with known-good and known-bad synthetic inputs.",
+    "control": "Apply one explicit executor restriction at the responsible boundary and one protected artifact or analyzer gate. Record trust roots, expected false positives/negatives and the update condition that triggers revalidation.",
+    "permittedCases": [
+      "Benign executor task uses only the declared capability",
+      "Approved artifact or safe analyzer case passes the declared gate"
+    ],
+    "deniedCases": [
+      "Executor reaches the one explicitly forbidden capability",
+      "Mismatched, untrusted or known-bad artifact/analysis case is promoted"
+    ],
+    "evidencePlan": [
+      "Executor capability map for the selected boundary",
+      "Pinned runtime/artifact identities and effective configuration",
+      "Known-good/known-bad gate cases with false-positive/negative accounting",
+      "Update regression and rollback record if native prerequisites are later satisfied"
+    ],
+    "evaluationCriteria": [
+      "The selected legitimate executor workflow remains functional",
+      "The selected denied capability is blocked by the responsible boundary when actually tested",
+      "Artifact/analyzer decisions remain reproducible across an approved update or are marked for revalidation"
+    ],
+    "remediationRetest": "Change only the selected executor policy or artifact gate, review the diff, rerun the legitimate and denied case, then repeat after one controlled update input.",
+    "recoveryTransfer": "Return to the authorized safe executor/artifact state, reconcile generated artifacts, preserve the failed/update evidence and transfer the narrow rule to one comparable runtime or artifact surface.",
+    "limitations": [
+      "Native executor/runtime prerequisites are unresolved; no isolation claim is made until the exact backend, image, host/kernel capabilities and effective policy are verified.",
+      "Client code or Compose entries do not prove the external sandbox implementation.",
+      "This slot intentionally does not claim a comprehensive sandbox, supply-chain or vulnerability assessment."
+    ]
+  },
+  {
+    "slot": "C05",
+    "title": "Security Evaluation & Incident Operations",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M23", "M24", "M25", "M26", "M27", "M30"],
+    "tags": ["Evaluation", "Telemetry", "Incident Response"],
+    "purpose": "Plan a repeatable security-evaluation and incident-operations study around one synthetic usage or agent-action failure sequence.",
+    "productNeed": "Teams changing prompts, tools or models need known-outcome regression checks, useful telemetry, accurate detections and a recovery process that can distinguish attempted, completed and uncertain effects.",
+    "securityObjective": "Validate the evaluator and detector against authoritative state, keep invalid cases visible, and connect failures to containment, reconciliation, retest and reproducible handover.",
+    "scope": "One synthetic usage/action scenario with a bounded known-outcome corpus, one event schema/detector, one fault/retry sequence and one handover. It is not a claim of complete red teaming or production incident coverage.",
+    "dependencies": [
+      "M13/M15 action and hostile-input boundary as applicable",
+      "M24 evaluation contract and known outcomes",
+      "M25 event schema before incident conclusions",
+      "Declared synthetic effect ledger or other authoritative oracle"
+    ],
+    "boundaries": [
+      "Scenario → evaluator/adjudication → release decision",
+      "Authoritative effect/data state → telemetry → detection",
+      "Failure/alert → containment → reconciliation → handover"
+    ],
+    "investigation": "Seed legitimate, blocked, completed, duplicated, missing-event and malformed/timeout cases. Compare evaluator and detector output with independently known effect state and preserve invalid/uncertain outcomes.",
+    "control": "Use authoritative state as the security oracle, version evaluation inputs and rules, minimize events, correlate request/task/effect IDs and require explicit containment/recovery owners.",
+    "permittedCases": [
+      "Legitimate authorized task succeeds and is scored separately from security outcome",
+      "Known safe event sequence remains below the declared detector threshold"
+    ],
+    "deniedCases": [
+      "Forbidden effect is missed because model text claims refusal or success",
+      "Missing/malformed evidence is silently converted into a pass"
+    ],
+    "evidencePlan": [
+      "Versioned known-outcome corpus and evaluator manifest",
+      "Raw TP/FP/FN/TN or explicit non-binary outcome counts where applicable",
+      "Event/alert map, blind-spot register and synthetic incident timeline",
+      "Containment, restore/reconciliation, retest and handover packet"
+    ],
+    "evaluationCriteria": [
+      "Ground truth comes from the responsible service/store rather than assessed model text",
+      "Invalid, timeout and unsupported cases remain visible in denominators and release decisions",
+      "Another person can reproduce the stated outcome and limitations from the handover"
+    ],
+    "remediationRetest": "Repair the evaluator, detector, event mapping or retry logic that produced the mismatch; rerun known-good and known-bad controls before using the result for a release or incident decision.",
+    "recoveryTransfer": "Contain the selected synthetic failure, reconcile actual effects, restore the authorized safe state and replay the same evaluation/operations pattern on a second product surface.",
+    "limitations": [
+      "No production incident, customer impact, longitudinal telemetry or professional incident-command experience is claimed.",
+      "One bounded corpus cannot establish complete attack coverage or evaluator reliability.",
+      "Release thresholds and accountable owners remain hypothetical until an actual authorized context supplies them."
+    ]
+  },
+  {
+    "slot": "C06",
+    "title": "Model Robustness, Training & Privacy",
+    "status": "Planned",
+    "publicationState": "planned",
+    "optionalSpecialty": true,
+    "missionIds": ["M31", "M32", "M33"],
+    "tags": ["Optional Specialty", "Model Security", "Privacy"],
+    "purpose": "Plan an optional model-security specialty using a real tiny model and synthetic data so robustness, training integrity and model-privacy claims have known ground truth.",
+    "productNeed": "When a role owns model-level risk, the team needs valid experiments for evasion, poisoning/training lineage and privacy or extraction behavior—not proxy claims based only on application prompts.",
+    "securityObjective": "Define valid perturbations, splits, attacker access and observable outputs before measuring robustness, training/artifact trust or privacy tradeoffs on a pinned small model.",
+    "scope": "One real tiny supervised model or trainer with synthetic data, held-out evaluation and one bounded experiment per selected responsibility. Foundation-model fine-tuning, large weights and production serving are out of scope.",
+    "dependencies": [
+      "ML/statistics foundations and M24 evaluation discipline",
+      "Pinned model/trainer, feature and label contract",
+      "Dataset/split provenance before training claims",
+      "Known synthetic membership/output ground truth before privacy claims"
+    ],
+    "boundaries": [
+      "Input/feature contract → model decision and clean/robust utility",
+      "Dataset/job identity → trained artifact → promotion",
+      "Observable model output → held-out privacy/extraction assessment"
+    ],
+    "investigation": "Pre-register valid and invalid perturbations, poisoning or membership cohorts, held-out data and utility metrics. Run only on declared synthetic data and preserve model/data/version identity.",
+    "control": "Use constrained preprocessing, dataset/job/artifact lineage, promotion gates and privacy/output controls that can be retested against held-out data without leaking final labels into tuning.",
+    "permittedCases": [
+      "Clean and valid perturbed inputs are evaluated under the same declared feature contract",
+      "Approved dataset/job/artifact lineage produces the expected promoted tiny model"
+    ],
+    "deniedCases": [
+      "Invalid perturbation or contaminated evaluation split is reported as security evidence",
+      "Unknown or unapproved training artifact is promoted or privacy conclusions are drawn without known membership ground truth"
+    ],
+    "evidencePlan": [
+      "Model, data, split and trainer manifest",
+      "Held-out outcome counts and utility comparison",
+      "Training/artifact lineage and promotion/recovery record",
+      "Explicit limitations tying every result to the tiny model and synthetic data used"
+    ],
+    "evaluationCriteria": [
+      "Attack and legitimate cohorts are valid under a fixed feature/output contract",
+      "Metrics report numerator/denominator and invalid cases rather than a single readiness score",
+      "Mitigation is judged alongside clean utility and transferred only with new evidence"
+    ],
+    "remediationRetest": "Adjust the selected preprocessing, training/promotion or output control; rerun held-out clean and attack/privacy cohorts and preserve the changed artifact identity.",
+    "recoveryTransfer": "Roll back to the approved tiny-model artifact or dataset lineage, then repeat the mechanism on a second small model or feature schema without reusing unsupported conclusions.",
+    "limitations": [
+      "This is an optional specialty for roles with model-level responsibility.",
+      "No native Onyx training, foundation-model security or production model assurance is claimed.",
+      "Results from one tiny synthetic model cannot be generalized to unrelated models or real user data."
+    ]
+  },
+  {
+    "slot": "C07",
+    "title": "AI Privacy, Policy & Product Assurance",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M05", "M07", "M16", "M28", "M36", "M39"],
+    "tags": ["Privacy", "Policy", "Product Assurance"],
+    "purpose": "Plan a product-assurance study that connects data minimization, safe output/reliance, lifecycle controls, supplier evidence and acceptable-use policy without inventing legal conclusions.",
+    "productNeed": "An AI product needs clear rules for what data can reach providers/tools/logs, how answers and downloads are presented, how data is deleted, and what supplier or misuse evidence supports product decisions.",
+    "securityObjective": "Make data, reliance and policy decisions traceable to concrete sinks, sources, lifecycle copies and independently reviewable evidence while preserving legitimate product use.",
+    "scope": "Trace one provider/tool/log data boundary, one output/reliance path, one deletion/lifecycle decision and one supplier or acceptable-use decision using synthetic content and source/design evidence.",
+    "dependencies": [
+      "M01/M05 data-flow and product-boundary foundations",
+      "Known provider/tool/log destination and data fields",
+      "Declared lifecycle copies and deletion assumptions",
+      "Actual supplier/service evidence and accountable specialists before real legal/procurement decisions"
+    ],
+    "boundaries": [
+      "User/retrieved data → provider/tool/log sink",
+      "Source/evidence → answer/link/download → human reliance",
+      "Data copies/supplier obligations/policy → product decision and exit or appeal path"
+    ],
+    "investigation": "Build field-to-sink, claim-to-source and copy-to-lifecycle matrices. Use harmless policy cases and supplier evidence to test whether a product decision is supported, unsupported or blocked by missing facts.",
+    "control": "Minimize data before outbound boundaries, preserve safe rendering and provenance, define deletion/recovery criteria, record supplier responsibilities and evaluate policy controls with legitimate near-neighbor cases.",
+    "permittedCases": [
+      "Approved data reaches an allowed sink and the user receives appropriately sourced output",
+      "Legitimate policy-compliant task remains usable under the declared privacy and reliance controls"
+    ],
+    "deniedCases": [
+      "Designated private synthetic canary reaches a denied sink or persists in an unaccounted copy",
+      "Unsupported supplier or policy evidence is presented as a legal, compliance or product-safety conclusion"
+    ],
+    "evidencePlan": [
+      "Data/sink register and minimized payload comparison",
+      "Claim/source or download-access matrix",
+      "Data-copy/deletion ledger and supplier responsibility matrix",
+      "Harmless policy corpus with false-refusal and unresolved-case accounting"
+    ],
+    "evaluationCriteria": [
+      "Denied synthetic fields stay out of declared sinks while allowed product behavior remains useful",
+      "Claims and product decisions distinguish observed evidence, source/design inference and unresolved questions",
+      "Policy evaluation includes safe near-neighbors so excessive refusal is visible"
+    ],
+    "remediationRetest": "Move minimization or output checks to the authoritative boundary, update lifecycle/supplier obligations or policy rules, then rerun both protected and legitimate cases with the changed evidence set.",
+    "recoveryTransfer": "Reconcile persisted copies, revoke only synthetic credentials if required, document incident/exit or appeal ownership and transfer the evidence method to a second provider, policy or product surface.",
+    "limitations": [
+      "No legal, compliance or procurement advice is claimed; real decisions require the relevant accountable specialists.",
+      "No real personal data, provider account or supplier contract is included.",
+      "A bounded policy corpus does not prove comprehensive misuse prevention or model safety."
+    ]
+  },
+  {
+    "slot": "C08",
+    "title": "Integrated AI Security Capstone",
+    "status": "Planned",
+    "publicationState": "planned",
+    "missionIds": ["M22", "M30", "M35", "M36", "M40"],
+    "catalogSection": "Section 17",
+    "tags": ["Capstone", "Release Gates", "Recovery"],
+    "purpose": "Plan the catalog’s synthetic support-summary action as an integrated case study covering authorized retrieval, exact action approval, telemetry, release gates, recovery and handover.",
+    "productNeed": "A synthetic employee should be able to summarize only documents they may access and create one local support ticket through an independently authorized action service.",
+    "securityObjective": "Carry one feature from design through authorized retrieval, constrained proposal, exact approval, effect verification, telemetry/evaluation, release change and safe recovery without granting authority to retrieved text or model output.",
+    "scope": "Synthetic subject/workspace/document/task IDs, an authorized retrieval adapter, deterministic or mock summary generation, one local ticket effect, exact approval, minimized events, a known-outcome evaluator, one update and one rollback/reconciliation exercise. Use a standalone fixture if native prerequisites remain unresolved.",
+    "dependencies": [
+      "M01/M02/M05 identity, object and data-flow foundations",
+      "M09 current retrieval authorization",
+      "M13 exact action approval and effect-service authority",
+      "M21/M24/M25/M27/M29 delivery, evaluation, telemetry, retry and update/recovery foundations"
+    ],
+    "boundaries": [
+      "Synthetic caller → authenticated entry service",
+      "Entry service → current authorized retrieval → selected context",
+      "Context → constrained summary/action proposal",
+      "Proposal → exact approval → local support-ticket effect service",
+      "Effect state → minimized telemetry/evaluator → release decision",
+      "Changed policy/schema/build → targeted regression → rollback/reconciliation"
+    ],
+    "investigation": "Pre-register allowed, denied and uncertain outcomes; verify current retrieval authority; bind approval to subject/task/tool/arguments/expiry; compare telemetry and evaluator output with the actual ticket ledger; then change one release input and exercise recovery.",
+    "control": "Retrieved text remains data, not authority. The effect service re-checks current caller/task permission and exact arguments, writes idempotent receipts, supports stop/reconciliation, and emits minimized authoritative events for independently validated evaluation.",
+    "permittedCases": [
+      "Authorized employee summarizes eligible documents and creates exactly one approved synthetic ticket",
+      "Approved update preserves the intended authorized flow"
+    ],
+    "deniedCases": [
+      "Wrong owner/workspace, stale permission or forbidden context reaches the summary",
+      "Changed arguments, wrong task/caller, expired approval or retry ambiguity creates an unauthorized or duplicate ticket"
+    ],
+    "evidencePlan": [
+      "Integrated threat/control map and pinned source/runtime manifest",
+      "Planned 24-case design with raw receipts and invalid counts added only after execution",
+      "Ticket-ledger, telemetry and evaluator correlation",
+      "Reviewed remediation/no-change rationale, update regression, rollback/reconciliation and independent handover"
+    ],
+    "evaluationCriteria": [
+      "Current retrieval permission determines context selection",
+      "Exact approval and current effect-service authority determine the ticket effect",
+      "Known-outcome evaluation uses authoritative state and keeps missing/malformed evidence INVALID or unresolved",
+      "Release change preserves legitimate behavior and recovery returns to an authorized safe state"
+    ],
+    "remediationRetest": "For any introduced fixture failure, correct the responsible retrieval, approval, effect, telemetry or evaluator boundary; retest the full legitimate and adverse flow before treating the change as release evidence.",
+    "recoveryTransfer": "Perform one safe rollback/reconciliation after a policy/schema/build change, hand the setup to another reviewer for reproduction, then transfer the same security invariant to an unseen feature or second product surface.",
+    "limitations": [
+      "Feature implementation is not yet built and the catalog’s 24 capstone cases are not yet run.",
+      "Onyx integration, actual-model behavior and external reviewer acceptance are not claimed.",
+      "The catalog’s starter recipe observations are preparation support only and are not attributed here as Ahmed’s independent results."
+    ]
+  }
+]

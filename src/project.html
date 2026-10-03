@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08131f">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{PAGE_DESCRIPTION}}">
+  <meta property="og:image" content="{{BASE_PATH}}assets/social-card.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{BASE_PATH}}assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{BASE_PATH}}assets/styles.css">
+  <script defer src="{{BASE_PATH}}assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header compact-header" data-header>
+    <div class="shell nav-shell">
+      <a class="brand" href="{{BASE_PATH}}" aria-label="Ahmed Amhdour home">
+        <span class="brand-mark" aria-hidden="true">AA</span>
+        <span class="brand-copy"><strong>Ahmed Amhdour</strong><small>AI Security Engineer</small></span>
+      </a>
+      <a class="button button-secondary button-small" href="{{BASE_PATH}}#portfolio">Back to portfolio</a>
+    </div>
+  </header>
+
+  <main id="main-content" class="project-page">
+    <section class="project-hero">
+      <div class="shell project-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{BASE_PATH}}">Home</a><span aria-hidden="true">/</span><a href="{{BASE_PATH}}#portfolio">Portfolio</a><span aria-hidden="true">/</span><span aria-current="page">{{SLOT}}</span>
+          </nav>
+          <div class="project-labels">
+            <span class="slot-label">{{SLOT}}</span>
+            <span class="status-badge status-planned">{{STATUS}}</span>
+            {{OPTIONAL_BADGE}}
+          </div>
+          <h1>{{TITLE}}</h1>
+          <p class="project-purpose">{{PURPOSE}}</p>
+          <div class="mission-row"><span>Mission mapping</span><strong>{{MISSIONS}}</strong></div>
+        </div>
+        <aside class="project-summary-card" aria-label="Project summary">
+          <p class="eyebrow">Current publication state</p>
+          <strong>{{STATUS}}</strong>
+          <p>No actual results, metrics, screenshots, evidence links or reviewer status are shown unless they are supplied and eligible for publication.</p>
+          <div class="tag-list">{{TAGS}}</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section project-detail-section">
+      <div class="shell project-detail-grid">
+        <aside class="project-toc" aria-label="Project details navigation">
+          <strong>On this page</strong>
+          <a href="#need">Need &amp; objective</a>
+          <a href="#scope">Scope &amp; boundaries</a>
+          <a href="#investigation">Investigation &amp; controls</a>
+          <a href="#evidence">Evidence &amp; evaluation</a>
+          <a href="#retest">Remediation &amp; transfer</a>
+          <a href="#limits">Limitations</a>
+        </aside>
+
+        <div class="project-detail-content">
+          <section id="need" class="detail-block section-anchor">
+            <p class="section-index">01 / Product need &amp; security objective</p>
+            <h2>Why this study exists</h2>
+            <div class="detail-columns">
+              <div><h3>Product need</h3><p>{{PRODUCT_NEED}}</p></div>
+              <div><h3>Security objective</h3><p>{{SECURITY_OBJECTIVE}}</p></div>
+            </div>
+          </section>
+
+          <section id="scope" class="detail-block section-anchor">
+            <p class="section-index">02 / Planned scope, dependencies &amp; boundaries</p>
+            <h2>Keep the claim smaller than the evidence.</h2>
+            <p>{{SCOPE}}</p>
+            <div class="detail-columns">
+              <div><h3>Dependencies</h3>{{DEPENDENCIES}}</div>
+              <div><h3>System boundaries</h3>{{BOUNDARIES}}</div>
+            </div>
+          </section>
+
+          <section id="investigation" class="detail-block section-anchor">
+            <p class="section-index">03 / Proposed investigation &amp; control</p>
+            <h2>Predict, test and observe the responsible boundary.</h2>
+            <div class="detail-stack">
+              <div><h3>Investigation</h3><p>{{INVESTIGATION}}</p></div>
+              <div><h3>Proposed control</h3><p>{{CONTROL}}</p></div>
+            </div>
+            <div class="case-grid">
+              <div class="case-card case-allow"><span>Permitted</span>{{PERMITTED_CASES}}</div>
+              <div class="case-card case-deny"><span>Denied / adverse</span>{{DENIED_CASES}}</div>
+            </div>
+          </section>
+
+          <section id="evidence" class="detail-block section-anchor">
+            <p class="section-index">04 / Evidence &amp; evaluation</p>
+            <h2>What would make the study reviewable</h2>
+            <div class="detail-columns">
+              <div><h3>Evidence to produce</h3>{{EVIDENCE_PLAN}}</div>
+              <div><h3>Evaluation criteria</h3>{{EVALUATION_CRITERIA}}</div>
+            </div>
+            {{OPTIONAL_RESULTS}}
+          </section>
+
+          <section id="retest" class="detail-block section-anchor">
+            <p class="section-index">05 / Remediation, retesting, recovery &amp; transfer</p>
+            <h2>Security work continues after the first observation.</h2>
+            <div class="detail-stack">
+              <div><h3>Planned remediation &amp; retest</h3><p>{{REMEDIATION_RETEST}}</p></div>
+              <div><h3>Recovery &amp; transfer</h3><p>{{RECOVERY_TRANSFER}}</p></div>
+            </div>
+          </section>
+
+          <section id="limits" class="detail-block section-anchor">
+            <p class="section-index">06 / Current limitations &amp; unanswered questions</p>
+            <h2>What this page does not claim</h2>
+            {{LIMITATIONS}}
+          </section>
+
+          <div class="project-endcap">
+            <p><strong>Publication rule:</strong> move this study into the completed view only after declared claims are reproducible, appropriately reviewed, transferable, and permitted for public release.</p>
+            <a class="button button-primary" href="{{BASE_PATH}}#portfolio">View all planned studies</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div><strong>Ahmed Amhdour</strong><span>AI Security Engineer</span></div>
+      <p>{{SLOT}} · {{TITLE}}</p>
+      <span>Planned study</span>
+    </div>
+  </footer>
+</body>
+</html>
