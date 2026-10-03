@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08131f">
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{SOCIAL_TITLE}}">
+  <meta property="og:description" content="{{SOCIAL_DESCRIPTION}}">
+  <meta property="og:image" content="{{BASE_PATH}}assets/social-card.svg">
+  <meta property="og:image:alt" content="Ahmed Amhdour — AI Security Engineer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{SOCIAL_TITLE}}">
+  <meta name="twitter:description" content="{{SOCIAL_DESCRIPTION}}">
+  <link rel="icon" href="{{BASE_PATH}}assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{BASE_PATH}}assets/styles.css">
+  <script defer src="{{BASE_PATH}}assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="shell nav-shell">
+      <a class="brand" href="{{BASE_PATH}}" aria-label="Ahmed Amhdour home">
+        <span class="brand-mark" aria-hidden="true">AA</span>
+        <span class="brand-copy"><strong>{{FULL_NAME}}</strong><small>{{TITLE}}</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation" data-nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#focus">Focus Areas</a>
+        <a href="#skills">Skills</a>
+        <a href="#journey">Learning Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="home" class="hero section-anchor" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Application &amp; Product Security</p>
+          <h1 id="hero-title">{{FIRST_NAME}}</h1>
+          <p class="hero-title">{{TITLE}}</p>
+          <p class="hero-description">{{HERO_DESCRIPTION}}</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#portfolio">Explore My Portfolio</a>
+            <a class="button button-secondary" href="#journey">View My Learning Journey</a>
+          </div>
+          <div class="hero-proof" aria-label="Portfolio principles">
+            <span>Evidence-first</span>
+            <span>Planned claims stay planned</span>
+            <span>Security boundaries over buzzwords</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="AI application security boundary illustration">
+          <div class="visual-grid" aria-hidden="true"></div>
+          <div class="boundary-card boundary-card-main">
+            <span class="boundary-kicker">System boundary</span>
+            <strong>AI Application</strong>
+            <small>identity · retrieval · tools · telemetry</small>
+          </div>
+          <div class="boundary-node node-identity"><span>01</span><strong>Identity</strong><small>caller + authority</small></div>
+          <div class="boundary-node node-rag"><span>02</span><strong>RAG</strong><small>authorized context</small></div>
+          <div class="boundary-node node-agent"><span>03</span><strong>Agent</strong><small>approved effects</small></div>
+          <div class="boundary-node node-evidence"><span>04</span><strong>Evidence</strong><small>measure + recover</small></div>
+          <svg class="boundary-lines" viewBox="0 0 600 470" role="img" aria-label="Decorative lines connecting identity, RAG, agent and evidence nodes to an AI application boundary">
+            <path d="M116 100 C220 130, 240 165, 300 215" />
+            <path d="M490 110 C400 135, 370 160, 330 215" />
+            <path d="M105 355 C205 330, 245 295, 300 260" />
+            <path d="M500 360 C410 330, 372 295, 330 260" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section-anchor" aria-labelledby="about-title">
+      <div class="shell two-column">
+        <div>
+          <p class="section-index">01 / About</p>
+          <h2 id="about-title">Learning to secure the product around the model.</h2>
+        </div>
+        <div class="prose-card">
+          <p>{{ABOUT}}</p>
+          <div class="about-principles">
+            <div><span>Focus</span><strong>AI application, RAG &amp; agent security</strong></div>
+            <div><span>Method</span><strong>Trace → predict → test → explain → improve → retest</strong></div>
+            <div><span>Publication rule</span><strong>Only evidence that is reproducible, reviewed and permitted</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section section-anchor section-tinted" aria-labelledby="portfolio-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="section-index">02 / Portfolio</p>
+            <h2 id="portfolio-title">Planned case studies</h2>
+          </div>
+          <p>Eight evidence-oriented studies mapped to the Onyx mission catalog. They are plans—not completed projects, professional engagements or confirmed findings.</p>
+        </div>
+
+        <div class="evidence-note" role="note">
+          <strong>Evidence boundary:</strong> source/design work, introduced fixtures, native observations, actual-model measurements and authorized professional work remain distinct. Catalog starter recipes are supporting artifact checks and are not presented as Ahmed’s independent achievements.
+        </div>
+
+        <div class="portfolio-toolbar" aria-label="Portfolio view">
+          <div class="filter-group" role="group" aria-label="Filter case studies">
+            <button class="filter-button is-active" type="button" data-project-filter="planned" aria-pressed="true">Planned studies</button>
+            <button class="filter-button" type="button" data-project-filter="completed" aria-pressed="false">Completed studies</button>
+          </div>
+          <span class="portfolio-count">{{PROJECT_COUNT}} planned slots</span>
+        </div>
+
+        <div class="project-grid" data-project-grid>
+          {{PROJECT_CARDS}}
+        </div>
+        <div class="empty-state" hidden data-completed-empty>
+          <strong>No completed studies are published yet.</strong>
+          <p>A study moves here only after its claims are reproducible, appropriately reviewed, defensible under transfer, and permitted for public release.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="section section-anchor" aria-labelledby="focus-title">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="section-index">03 / Focus Areas</p>
+          <h2 id="focus-title">Security responsibilities I’m learning to reason about.</h2>
+        </div>
+        <div class="focus-grid">
+          {{FOCUS_AREAS}}
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-anchor section-tinted" aria-labelledby="skills-title">
+      <div class="shell two-column skills-layout">
+        <div>
+          <p class="section-index">04 / Skills</p>
+          <h2 id="skills-title">Learning areas linked to mission evidence.</h2>
+          <p class="section-lede">No proficiency percentages or expert labels. These are capabilities being developed through prerequisite-based missions and reviewable artifacts.</p>
+        </div>
+        <div class="skills-list">
+          {{SKILLS}}
+        </div>
+      </div>
+    </section>
+
+    <section id="journey" class="section section-anchor" aria-labelledby="journey-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="section-index">05 / Learning Journey — 2026 and Beyond</p>
+            <h2 id="journey-title">Progress by prerequisites and evidence—not by calendar labels.</h2>
+          </div>
+          <p>{{JOURNEY_INTRO}}</p>
+        </div>
+
+        <div class="journey-foundation" aria-label="First five missions">
+          {{FOUNDATION_JOURNEY}}
+        </div>
+
+        <div class="track-heading">
+          <p class="eyebrow">Specialize after the foundations</p>
+          <h3>Mission tracks</h3>
+        </div>
+        <div class="track-grid">
+          {{TRACKS}}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-anchor contact-section" aria-labelledby="contact-title">
+      <div class="shell contact-panel">
+        <div>
+          <p class="section-index">06 / Contact</p>
+          <h2 id="contact-title">Interested in AI application, RAG or agent security?</h2>
+          <p>I’m building a public record of careful, reproducible security learning. GitHub is the currently configured contact surface; other profile links stay hidden until real values are provided.</p>
+        </div>
+        <div class="contact-links">
+          {{CONTACT_LINKS}}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <strong>{{FULL_NAME}}</strong>
+        <span>{{TITLE}}</span>
+      </div>
+      <p>Built as an evidence-first learning portfolio. Planned work is labeled as planned.</p>
+      <span>© {{YEAR}}</span>
+    </div>
+  </footer>
+</body>
+</html>
