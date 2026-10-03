@@ -20,6 +20,10 @@ Recorded on October 3, 2026. Local runtime: Node.js v24.19.0. The project declar
 
 The color calculation converts each sRGB channel to linear light, computes relative luminance using 0.2126 R + 0.7152 G + 0.0722 B, then computes `(lighter + 0.05) / (darker + 0.05)`. Sampled source pairs: body text/background, muted text/surface, secondary metadata/surface, primary button, Planned badge, focus accent, tags and contact body.
 
+## Remote CI
+
+The [GitHub Actions PR run](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/37126717078) for initial implementation commit `85096747cb23245ad2b2aef060031dfeff4c1900` completed with conclusion `success`. This verifies that the submitted workflow ran successfully on GitHub; it is not a Pages deployment or a visual browser check.
+
 ## Browser verification limitation
 
 Raif Kaya’s current site was opened and visually inspected through the cloud browser. This implementation’s desktop/mobile **visual QA was not completed**: the managed preview service was unavailable; a separate local Chromium installation did not produce a usable executable; and the cloud browser’s URL policy rejected opening generated local preview files. That rejected file navigation was not bypassed.
