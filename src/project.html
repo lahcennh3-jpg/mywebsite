@@ -36,7 +36,7 @@
           </nav>
           <div class="project-labels">
             <span class="slot-label">{{SLOT}}</span>
-            <span class="status-badge status-planned">{{STATUS}}</span>
+            <span class="status-badge {{STATUS_CLASS}}">{{STATUS}}</span>
             {{OPTIONAL_BADGE}}
           </div>
           <h1>{{TITLE}}</h1>
@@ -135,7 +135,7 @@
     <div class="shell footer-grid">
       <div><strong>Ahmed Amhdour</strong><span>AI Security Engineer</span></div>
       <p>{{SLOT}} · {{TITLE}}</p>
-      <span>Planned study</span>
+      <span>{{STATUS}} study</span>
     </div>
   </footer>
 </body>
