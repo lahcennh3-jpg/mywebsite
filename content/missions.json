@@ -1,0 +1,242 @@
+[
+  {
+    "id": "M01",
+    "title": "Baseline, threat model and requirements",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M02",
+    "title": "API ownership, permissions and business operations",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M03",
+    "title": "Uploads, parsers and private file handling",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M04",
+    "title": "Deployment configuration, exposure and secrets",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M05",
+    "title": "Sensitive-data flows and deterministic DLP",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M06",
+    "title": "Authentication, sessions, SSO and offboarding",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M07",
+    "title": "Browser rendering, links and downloadable output",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M08",
+    "title": "Connector ingestion, provenance and poisoning",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M09",
+    "title": "Retrieval permissions and index/filter enforcement",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M10",
+    "title": "Revocation, stale state and delayed work",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M11",
+    "title": "Onyx consuming MCP services",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M12",
+    "title": "Onyx exposing MCP access",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M13",
+    "title": "Actions, approvals and constrained side effects",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M14",
+    "title": "URL fetching and outbound network policy",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M15",
+    "title": "Prompt injection and hidden-context exposure",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M16",
+    "title": "Grounding, citations and human reliance",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M17",
+    "title": "Persistent memory and project instructions",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M18",
+    "title": "Code interpreter and sandbox contract",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M19",
+    "title": "Craft sandbox, proxy and generated artifacts",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M20",
+    "title": "Native tenant/workspace isolation",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M21",
+    "title": "Software and AI supply chains",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M22",
+    "title": "Vulnerability triage, remediation and private disclosure",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M23",
+    "title": "Abuse, quotas, attribution and economic controls",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M24",
+    "title": "Quantitative adversarial evaluation and release regression",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M25",
+    "title": "Privacy-aware observability and detection",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M26",
+    "title": "Incident investigation, containment and recovery exercise",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M27",
+    "title": "Failure handling, retries, cancellation and partial effects",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M28",
+    "title": "Retention, deletion, derived data and restoration",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M29",
+    "title": "Upgrades, migrations, compatibility and parity",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M30",
+    "title": "Secure feature delivery, handover and honest portfolio",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M31",
+    "title": "Predictive ML adversarial robustness",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M32",
+    "title": "Training and fine-tuning security",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M33",
+    "title": "Model privacy, membership inference and extraction",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M34",
+    "title": "Multi-agent communication and rogue-agent containment",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M35",
+    "title": "Build and maintain security automation",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M36",
+    "title": "Third-party AI acquisition and assurance",
+    "status": "Planned",
+    "specialty": false
+  },
+  {
+    "id": "M37",
+    "title": "Model-serving runtime security",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M38",
+    "title": "Browser and desktop agent security",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M39",
+    "title": "Malicious-use prevention and safety-control testing",
+    "status": "Planned",
+    "specialty": true
+  },
+  {
+    "id": "M40",
+    "title": "Security-program ownership across products",
+    "status": "Planned",
+    "specialty": true
+  }
+]

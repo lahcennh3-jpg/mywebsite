@@ -1,0 +1,173 @@
+[
+  {
+    "id": "C01",
+    "slug": "identity-authorization-revocation",
+    "title": "Identity, Authorization & Revocation",
+    "purpose": "Plan caller-to-object authorization checks that preserve legitimate access and stop stale authority after revocation.",
+    "missions": ["M01", "M02", "M06", "M10"],
+    "tags": ["Authorization", "Identity", "Revocation"],
+    "status": "Planned",
+    "icon": "identity",
+    "sourceSections": ["3", "7", "13", "15.1"],
+    "optional": false,
+    "details": {
+      "objective": "A document assistant needs private chats and projects to remain accessible to the right caller. The planned objective is to connect authenticated identity, object ownership and current permission at every relevant read, write and delayed operation.",
+      "scope": ["Start with a pinned Onyx source trace and a separately labeled relation-policy fixture using synthetic users and objects.", "Compare one selected LibreChat route as a transfer exercise. Two users in one workspace will not be presented as a native tenant-isolation test."],
+      "dependencies": ["M01 threat model before M02 ownership work; HTTP, identity and database-filter fundamentals.", "M02 and M04 foundations before M06; M06 and M09 reasoning before M10’s revocation timeline.", "Actual sessions, SSO/SCIM, edition entitlement and source/runtime parity are unresolved native gates."],
+      "investigation": ["Trace caller → handler → authoritative query or policy service. Write the role/object/action matrix and allowed/denied predictions before testing.", "Propose owner access, intended sharing, foreign-object denial, expired-session denial and revocation during queued work. Compare source reasoning with independently recorded fixture effects."],
+      "evidence": ["Pinned source and configuration manifest; trust-boundary diagram; ownership matrix; predictions and synthetic request pairs.", "Later, produce raw case receipts, revocation timelines and requirement → control → case → retest links. Acceptance requires correct permitted behavior and denied access at the responsible boundary, with unexplained outcomes investigated."],
+      "followThrough": ["Plan an authoritative caller/object check or a documented no-change rationale, then retest read, write and delayed paths without breaking legitimate sharing.", "Define stale-grant invalidation, safe-state recovery and an owner handover. Transfer the reasoning to a new route rather than copying endpoint names."],
+      "limitations": ["No mission experiments, native identity integration or independent assessment have been supplied.", "Source and fixture evidence cannot establish native Enterprise isolation, revocation latency or production readiness."]
+    },
+    "evidenceLinks": [],
+    "results": null,
+    "metrics": [],
+    "screenshots": [],
+    "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C02",
+    "slug": "secure-rag-data-lifecycle",
+    "title": "Secure RAG & Data Lifecycle",
+    "purpose": "Trace trust and access through uploads, ingestion, retrieval, memory and deletion of derived data.",
+    "missions": ["M03", "M08", "M09", "M17", "M28"],
+    "tags": ["RAG", "Data privacy", "Lifecycle"],
+    "status": "Planned",
+    "icon": "data",
+    "sourceSections": ["3", "7", "13", "15.1"],
+    "optional": false,
+    "details": {
+      "objective": "Users need useful answers from documents they may access, with controlled processing and deletion. The planned objective is to preserve provenance and current permission across source files, chunks, indexes, context, persistent memory and retained copies.",
+      "scope": ["Follow selected Onyx data paths from bounded synthetic upload to processing, retrieval, memory and deletion.", "Transfer one permission or lifecycle mechanism to pgvector with a selected Haystack or LlamaIndex retriever. Ingestion, retrieval and generation remain distinct boundaries."],
+      "dependencies": ["M01/M02 and file/HTTP basics before M03; M03–M05 and ingestion basics before M08.", "M06/M08 before M09; M02/M05/M15 before M17; M05/M10/M17 before M28.", "Standard indexing resources, embeddings, current ACL behavior and any required Enterprise entitlement must be verified before native claims. Lite is not evidence of indexed retrieval."],
+      "investigation": ["Inventory file and derived-copy paths, provenance metadata, access filters and context assembly. Specify who may ingest, change, retrieve and delete each object.", "Propose normal small uploads and permitted retrieval alongside bounded parser failures, denied chunks, stale ACLs, hostile source instructions, foreign memory access and restored-copy cases. Enforce permission outside model reasoning."],
+      "evidence": ["A source/data manifest, copy-and-deletion ledger, provenance map, permitted/denied retrieval matrix and memory ownership trace.", "Later, record actual selected document IDs, context fields, cleanup states and retention/retest receipts. Evaluate both useful authorized retrieval and absence of forbidden synthetic content at declared sinks."],
+      "followThrough": ["Plan validation, quarantine, authoritative filtering and lifecycle controls at their respective services. Retest normal documents and asynchronous failure paths.", "Define cleanup, index revalidation and policy-aware restore behavior. Transfer one mechanism to the selected retriever with a new authority map and handover."],
+      "limitations": ["No native retrieval, memory or deletion results have been supplied. Native ACL availability remains unresolved.", "A mock filter cannot prove native access enforcement. File deletion alone cannot prove removal from every derived copy, backup or learned model."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C03",
+    "slug": "mcp-agent-action-security",
+    "title": "MCP & Agent Action Security",
+    "purpose": "Plan exact identity, task, approval and effect binding for tools, delegated agents, retries and stop controls.",
+    "missions": ["M11", "M12", "M13", "M14", "M15", "M27", "M34"],
+    "tags": ["MCP", "Agent permissions", "Tool execution"],
+    "status": "Planned", "icon": "agent", "sourceSections": ["3", "7", "13", "15.1"], "optional": false,
+    "details": {
+      "objective": "An assistant should complete the exact authorized action without turning untrusted text or peer messages into authority. The planned objective is to bind caller, recipient, task, tool, arguments, expiry and current permission to the actual effect.",
+      "scope": ["Review Onyx’s separate MCP consumption and exposure paths, action service and outbound policy. Use synthetic local tools and a deterministic peer fixture first.", "Select one OpenHands SDK/server or Cline surface for transfer. General native A2A support is unconfirmed; MCP and agent-to-agent communication are separate contracts."],
+      "dependencies": ["Identity/OAuth and M04/M06 before M11; M02/M09/M11 before M12; M11 before M13.", "M05/M09/M11/M13 before M15; M10/M13/M23 before M27; M11/M13/M15/M25/M27 before M34.", "Pin the selected transport and service schema. Native protocol, model behavior and independently enforceable stop require their own evidence."],
+      "investigation": ["Trace credential selection, consent, token audience and caller-bound API access. Plan exact-argument approval and a final permission check at the action service.", "Pair legitimate actions with changed arguments, wrong caller/task/recipient, expired approval, unsafe destination, hostile input, replay and post-stop cases. Check authoritative effect receipts rather than a model’s refusal text."],
+      "evidence": ["Identity/delegation map; action and approval schemas; redacted token metadata; request/task/effect ledger; stop and retry state timelines.", "Later, produce permitted/denied effect receipts and descendant-stop evidence. Acceptance requires legitimate completion, no unauthorized or duplicate effect in declared cases, and explicit handling of uncertain completion."],
+      "followThrough": ["Plan service-enforced least privilege, exact approval binding, destination checks, idempotency and revocation. Retest legitimate tasks, response loss and cancellation.", "Define quarantine, descendant stop, credential revocation and effect reconciliation. Transfer the mechanism to an unseen tool or peer with a new trust map."],
+      "limitations": ["No MCP integration, native cryptographic transport, actual-model injection measurements or agent containment results have been supplied.", "A deterministic fixture can test its own authority checks; it cannot establish native protocol conformance or real-model rogue-agent detection."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C04",
+    "slug": "sandbox-supply-chain-controls",
+    "title": "Sandbox & Supply Chain Controls",
+    "purpose": "Review one executor boundary and one related artifact-provenance control, with native runtime prerequisites unresolved.",
+    "missions": ["M04", "M18", "M19", "M21", "M29", "M35"],
+    "tags": ["Sandbox", "Provenance", "Secure delivery"],
+    "status": "Planned", "icon": "boundary", "sourceSections": ["3", "7", "13", "15.1"], "optional": false,
+    "prerequisiteNote": "Native runtime prerequisites unresolved",
+    "details": {
+      "objective": "An assistant needs to execute bounded work without granting host, cross-session or artifact authority beyond the declared policy. This deliberately narrow study plans one executor session/artifact boundary and one related provenance or analysis control.",
+      "scope": ["Select one executor path: the code-interpreter contract (M18) or the Craft sandbox/proxy path (M19), not a combined assessment of every runtime.", "Review the selected session-to-artifact boundary plus one artifact-provenance check or narrow analysis rule. M04/M21 supply configuration and trust-root context; M29/M35 supply update regression and rule maintenance. Choose one isolation/analysis component for transfer."],
+      "dependencies": ["M03/M04/M14 and filesystem/process/network fundamentals before executor work; M04 before M21; M04/M21/M24/M28 before M29; M02/M21/M22/M24 before M35.", "Unresolved native gates: selected backend and image digest, source parity, CPU/RAM budget, Docker/kernel/capability support, effective isolation policy and experienced specialist review.", "If Craft is selected, Standard mode, ENABLE_CRAFT, supported backend and exact entitlement must be established. Craft is not compatible with Lite in the catalog baseline."],
+      "investigation": ["Trace one create/execute/upload/download/session contract and the artifact’s trust root. Propose only benign synthetic same-session operations, foreign-session denial and bounded timeout/cleanup checks.", "Design a single provenance check or analysis rule with known positive, negative and ambiguous examples. Enforce the selected boundary at the broker/runtime; source code and a mock do not prove actual isolation."],
+      "evidence": ["Executor contract, privilege and session map; exact source/image/configuration manifest; selected artifact lineage; unresolved-runtime register.", "Later, retain specialist-reviewed native capability evidence, benign boundary receipts and a labeled held-out rule corpus. Evaluate legitimate behavior, false positives/negatives and regression after one reviewed update."],
+      "followThrough": ["Plan a minimal privilege, session or artifact-control correction at the selected authority boundary. Review rule failures and retest the narrow allowed/denied set.", "Define executor stop, disposal of synthetic workspaces and restore to the reviewed image/policy. Transfer only the tested invariant and keep new runtime gates explicit."],
+      "limitations": ["Native runtime prerequisites remain unresolved. No executor has been assessed, no isolation result is supplied and no sandbox-strength claim is supported.", "This scope excludes escape payloads, host-secret probes, privileged host access and a broad platform audit. Fixture and source work cannot substitute for specialist native runtime evidence."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C05",
+    "slug": "security-evaluation-incident-operations",
+    "title": "Security Evaluation & Incident Operations",
+    "purpose": "Plan trustworthy evaluation and a synthetic incident exercise using authoritative events, containment and reproducible recovery.",
+    "missions": ["M23", "M24", "M25", "M26", "M27", "M30"],
+    "tags": ["Evaluation", "Telemetry", "Recovery"],
+    "status": "Planned", "icon": "evaluation", "sourceSections": ["3", "7", "13", "15.1"], "optional": false,
+    "details": {
+      "objective": "An operator needs to understand resource use and consequential events without collecting unnecessary private content. The planned objective is a validated evaluator/detector and a synthetic usage or action incident that can be investigated, contained and reconciled.",
+      "scope": ["Use a synthetic usage/action ledger and one collector/detector. Preserve caller attribution, declared quota states and minimized request/task/effect correlation.", "Transfer a detection or recovery mechanism to a second selected product. Real incident response, production telemetry and client ownership are outside this preview."],
+      "dependencies": ["M06/M13/M21 before M23; M15/M16/M23 and evaluation/statistics foundations before M24.", "M05/M10/M13 before M25; M25 before M26; M10/M13/M23 before M27. M30 follows reviewable technical evidence.", "Actual-model evaluation needs a separately pinned model, corpus, output contract and valid trial design."],
+      "investigation": ["Define legitimate use, quota denial, unsafe retries and authoritative event schemas. Validate scoring against known allowed, denied, invalid and uncertain outcomes before interpreting release results.", "Propose missing-event, response-loss-after-effect, duplicate-action, false-alert and stop/recovery cases. Record detector blind spots and reconcile ledger state independently of response wording."],
+      "evidence": ["Versioned corpus and labels, evaluator validation cases, raw events, identity/accounting trace, incident timeline and containment decision log.", "Later, report raw numerators/denominators, invalid counts, legitimate-task failures and detector false positives/negatives where actually measured. Acceptance requires explainable discrepancies, preserved legitimate work and reproducible handover."],
+      "followThrough": ["Plan a reviewed evaluator, attribution or state-handling fix, then retest scoring and legitimate workflows. An invalid or missing observation must not silently become a pass.", "Define containment authority, evidence retention, safe rollback and effect reconciliation. Give another person a fresh recovery/handover packet and transfer the event invariant."],
+      "limitations": ["No trials, detector measurements, incident outcomes or reviewer acceptance have been supplied.", "A synthetic exercise cannot demonstrate production incident judgment, scale, longitudinal telemetry or actual-model security. No scores are published without valid recorded denominators."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C06",
+    "slug": "model-robustness-training-privacy",
+    "title": "Model Robustness, Training & Privacy",
+    "purpose": "Optionally study robustness, training trust and privacy with a real tiny synthetic model and held-out evaluation.",
+    "missions": ["M31", "M32", "M33"],
+    "tags": ["Model robustness", "Training", "Model privacy"],
+    "status": "Planned", "icon": "model", "sourceSections": ["3", "7", "13", "15.1"], "optional": true,
+    "details": {
+      "objective": "For a role with model-level responsibility, a model team needs to understand valid input perturbations, training/artifact trust and what observable outputs reveal. This optional specialty plans measured experiments on a real tiny classifier with entirely synthetic ground truth.",
+      "scope": ["Use a small real supervised model, fixed feature/label contract and separate train, validation, attack-development and held-out assessment splits.", "Select a bounded robustness, poisoning or privacy question, then transfer to a second model/feature schema. Onyx may be an optional caller; no native Onyx training pipeline or foundation-model assurance is assumed."],
+      "dependencies": ["M31 follows M01/M21/M24 plus ML/statistics and a pinned small model.", "M32 follows M21/M24/M31 plus dataset provenance and a reviewed trainer; M33 follows M05/M21/M24/M31/M32 plus known synthetic membership and an observable-output contract.", "Compute, dependency, model/data and evaluation feasibility must be checked. Defer this track if the target responsibility does not require it."],
+      "investigation": ["Define valid perturbations and unchanged task labels; establish clean baselines before mitigations. Keep dataset approval, training identity, artifact registry and promotion separate.", "For a selected privacy experiment, hold out attack thresholds and assessment cohorts. Permit intended predictions and approved training; deny malformed input, unapproved artifacts or data and unauthorized metadata access."],
+      "evidence": ["Synthetic dataset/split hashes, model/preprocessor/trainer identity, feature constraints, attack-access contract, prediction pairs and promotion records.", "Later, produce valid/invalid counts, matched baselines and utility tradeoffs appropriate to the experiment. Review repeated-sample dependence and statistical limits; acceptance is confined to the tested model, data and attacker access."],
+      "followThrough": ["Plan validation, provenance, output minimization or another justified mitigation based on measured utility/security tradeoffs. Retest on held-out attacks and legitimate cases.", "Define quarantine, promotion stop and rollback of the approved model/preprocessor pair. Transfer by redefining the feature schema and protected fact, with new evidence."],
+      "limitations": ["Optional model-security specialty; no Ahmed model experiment or model measurement has been supplied. Catalog tiny-model recipe checks are supporting artifact verification only.", "Mocks cannot replace real-model ground truth. A small synthetic experiment cannot establish foundation-model robustness, hidden provider membership, formal privacy or verified unlearning."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C07",
+    "slug": "ai-privacy-policy-product-assurance",
+    "title": "AI Privacy, Policy & Product Assurance",
+    "purpose": "Plan data minimization and evidence-based product, supplier, reliance and acceptable-use decisions.",
+    "missions": ["M05", "M07", "M16", "M28", "M36", "M39"],
+    "tags": ["Privacy", "Product assurance", "Policy"],
+    "status": "Planned", "icon": "assurance", "sourceSections": ["3", "7", "13", "15.1"], "optional": false,
+    "details": {
+      "objective": "Users and product owners need bounded data disclosure, safe output handling and understandable assurance decisions. The planned objective combines sink minimization with one explicit supplier, reliance or policy question backed by inspectable evidence.",
+      "scope": ["Trace a selected Onyx/provider/tool data boundary, browser output/download path and retained-copy lifecycle using synthetic fields and inert supplier records.", "Compare one second product/policy boundary. Include M39 malicious-use testing only if the target product responsibility requires it, with a reviewed inert policy corpus."],
+      "dependencies": ["M01–M04 before M05; M02/M03 before M07; M08/M15 before M16; M05/M10/M17 before M28.", "M01/M05/M21/M28/M30 before M36. Optional M39 follows M13/M15/M23/M24/M25/M26 and needs written policy plus adjudication.", "Real legal, privacy, procurement and risk decisions require the appropriate accountable owners. Native provider terms and service-plan evidence require current verification."],
+      "investigation": ["Register sensitive synthetic fields and every model/tool/log sink; distinguish display interpretation from file authorization. Inspect each cited answer claim rather than treating a citation as automatic proof.", "Propose allowed useful fields and benign learning requests alongside forbidden sink fields, foreign downloads, unsupported citations, restored copies and policy/action mismatches. Intentional misuse remains distinct from prompt injection."],
+      "evidence": ["Data-flow and sink register, inert canary cases, rendering/download matrix, citation-grounding rubric, retention map and dated supplier/policy evidence with gaps.", "Later, produce actual allow/deny receipts and adjudicated legitimate/denied outcomes. Acceptance requires reproducible minimization, preserved useful behavior and an explicit owner decision rather than an unsupported assurance score."],
+      "followThrough": ["Plan authoritative sink, output-access or policy controls; retest legitimate disclosures, downloads and benign lookalikes. Keep policy changes traceable to affected cases.", "Define deletion/restore behavior, supplier exit and service fallback responsibilities. Transfer by redrawing the data/decision boundary for a new product."],
+      "limitations": ["No privacy control results, supplier acceptance, legal review or actual-model safety measurements have been supplied.", "Deterministic DLP does not establish statistical model privacy. Native/legal gaps remain explicit; no certification, compliance or universal safety claim is made."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  },
+  {
+    "id": "C08",
+    "slug": "integrated-ai-security-capstone",
+    "title": "Integrated AI Security Capstone",
+    "purpose": "Plan a synthetic support-summary action from authorized retrieval and exact approval through telemetry, release gates and recovery.",
+    "missions": ["M22", "M30", "M35", "M36", "M40"],
+    "tags": ["Secure delivery", "Release gates", "Recovery"],
+    "status": "Planned", "icon": "capstone", "sourceSections": ["3", "7", "13", "15.1", "17"], "optional": false,
+    "details": {
+      "objective": "The catalog’s planned F01 feature lets an authenticated synthetic employee summarize only permitted documents and request one local support ticket. A separate action service decides the effect. The objective is to demonstrate composition of retrieval, approval, telemetry, release and recovery controls with honest handover.",
+      "scope": ["Use synthetic subjects, documents and a local ticket ledger. Initial summaries are deterministic or mock-generated and labeled accordingly. No real email, account, paid provider or cloud action is required.", "Onyx is the source anchor. If native prerequisites remain unresolved, implement a clearly added standalone fixture and preserve source comparison; optional native integration uses the actual pinned schema and a separate gate.", "C08 keeps its M22/M30/M35/M36/M40 mapping plus Section 17. The feature also draws technical controls from M01/M02/M05/M09/M13/M21/M24/M25/M27/M29. M40 program ownership remains optional senior scope, simulated unless actual work is authorized."],
+      "dependencies": ["Review the first-five foundations, selected retrieval/action mechanisms, supply-chain identity and evaluator validation before integration.", "M35 follows M02/M21/M22/M24; M36 follows M01/M05/M21/M28/M30; optional M40 follows M22/M25/M26/M30/M35/M36.", "Pin the entry/retrieval/effect services and independent outcome oracle. Native Standard/RAG/edition/model prerequisites and reviewer participation are unresolved."],
+      "investigation": ["Resolve current document permission before context; treat document text as data. Bind approval to subject, task, tool, exact arguments and expiry, then recheck current authorization at the effect service.", "Plan 24 scenarios: legitimate retrieval, allowed fields, exact ticket, reconciled retry, complete events and approved update; adverse cases include wrong ownership, denied chunks, changed arguments, expired approval, response loss, stop, missing events, invalid scoring and rollback. This is a test design, not an executed count."],
+      "evidence": ["Integrated threat/control map; exact service/data/source manifests; context and proposal contracts; approval and effect receipts; minimized correlated telemetry; evaluator validation.", "Later, retain actual case receipts and invalid counts, reviewed correction or no-change rationale, legitimate regressions, update/recovery records and independent handover. A passing isolated fixture does not prove the combined feature correct."],
+      "followThrough": ["Plan a reviewed correction for an introduced fixture failure if found, preserving its classification. Retest the entire retrieval → proposal → approval → effect → telemetry flow.", "Change one policy, schema or build input; run affected release regressions and restore an authorized safe state with ticket reconciliation. Ask an independent reviewer to reproduce the packet, then transfer to an unseen variant. Actual professional contribution or acceptance is recorded only if later obtained."],
+      "limitations": ["Feature implementation not built; proposed capstone cases not run; native Onyx integration not run; actual-model behavior not run; external acceptance not obtained.", "This is a planned synthetic delivery/program bridge. It does not establish production release authority, sustained program ownership or client experience."]
+    },
+    "evidenceLinks": [], "results": null, "metrics": [], "screenshots": [], "review": null,
+    "publication": { "approved": false, "permissionReference": null, "reproducibilityReference": null, "independentDemonstrationReference": null }
+  }
+]
