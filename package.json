@@ -1,0 +1,16 @@
+{
+  "name": "ahmed-ai-security-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ahmed Amhdour's evidence-led AI security learning portfolio.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "dev": "node scripts/serve.mjs --port 4173 --host 0.0.0.0",
+    "preview": "node scripts/serve.mjs --port 4173",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

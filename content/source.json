@@ -1,0 +1,16 @@
+{
+  "title": "Onyx security mission catalog — final 2026-09-30",
+  "date": "2026-09-30",
+  "sections": ["3", "7", "13", "15.1", "15.2", "17"],
+  "researchRevision": "e7240a64ed06fff6f665fdde2bd90c4a3052d004",
+  "researchRepository": "https://github.com/onyx-dot-app/onyx",
+  "note": "Descriptions are adapted from the September 30, 2026 catalog. All eight slots are planned learning studies. The catalog’s starter-recipe checks support preparation; they are not Ahmed’s independent achievements, completed missions or native product assurance.",
+  "publicationNote": "Only sanitized material with appropriate publication permission belongs in this public portfolio. Suspected private findings stay in the applicable private disclosure channel.",
+  "evidenceKinds": [
+    { "id": "source-design", "label": "Source / design", "description": "A pinned source trace or reviewed design; runtime behavior remains unverified." },
+    { "id": "introduced-fixture", "label": "Introduced fixture", "description": "An explicitly added synthetic exercise; conclusions apply to that fixture." },
+    { "id": "native-observation", "label": "Native observation", "description": "An observation from the exact authorized product build, configuration and runtime." },
+    { "id": "actual-model", "label": "Actual-model measurement", "description": "A measured experiment with a real identified model, known data and valid evaluation." },
+    { "id": "authorized-professional", "label": "Authorized professional work", "description": "Actual scoped work with documented authorization, contribution and publication permission." }
+  ]
+}

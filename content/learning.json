@@ -1,0 +1,44 @@
+{
+  "heading": "Learning Journey — 2026 and Beyond",
+  "description": "A prerequisite-led plan: start with the foundations, select a relevant mechanism, then produce evidence that another person can inspect and reproduce.",
+  "note": "Mission IDs identify stable catalog entries. They are not months, a fixed schedule or a measure of career readiness. Each area below is planned learning, not a completed qualification.",
+  "foundations": [
+    { "mission": "M01", "title": "Threat model & requirements", "description": "Pin the system, map assets and trust boundaries, and define the product’s security requirements.", "gate": "Git, HTTP and basic Python source reasoning." },
+    { "mission": "M02", "title": "API ownership & permissions", "description": "Trace caller-to-object access and write permitted and denied request predictions.", "gate": "M01 plus HTTP, identity and database-filter fundamentals." },
+    { "mission": "M03", "title": "Secure uploads & file handling", "description": "Plan bounded parsing, private file access, processing failure and cleanup cases.", "gate": "M01/M02 plus file and HTTP fundamentals." },
+    { "mission": "M04", "title": "Configuration & secrets", "description": "Inspect effective deployment settings, listeners, privileges and the secret lifecycle.", "gate": "M01 plus configuration, process and network fundamentals." },
+    { "mission": "M05", "title": "Data flows & privacy", "description": "Trace synthetic fields to model, tool and log sinks; plan minimization controls.", "gate": "M01–M04 plus JSON and data-flow reasoning." }
+  ],
+  "tracks": [
+    { "name": "Application & product security", "label": "Primary direction", "scope": "M01–M30, then M35–M36", "description": "Authorization, data and action boundaries, secure delivery and reliable operations. Build relevant foundations before the selected application mechanism.", "gate": "Native Enterprise, retrieval and sandbox cases keep their separate availability and runtime gates.", "optional": false },
+    { "name": "Agent application security", "label": "Product-dependent", "scope": "Relevant M01–M30 foundations → M34; M38/M39 when required", "description": "Task-bound delegation, authenticated peers, secure tool execution, stop controls and effect reconciliation.", "gate": "M34 needs M11/M13/M15/M25/M27. Computer-use and malicious-use specialties are added only when the product responsibility requires them.", "optional": false },
+    { "name": "Model & training security", "label": "Optional specialty", "scope": "M01/M05/M21/M24 → M31 → M32 → M33", "description": "Valid robustness, training/artifact trust and model-privacy experiments on known synthetic data with held-out evaluation.", "gate": "Requires ML/statistics, a real pinned small model, approved compute, split provenance and known membership where needed.", "optional": true },
+    { "name": "Inference platform security", "label": "Optional specialty", "scope": "M04/M14/M18–M21/M24/M29 → M37", "description": "Selected serving-engine management, worker, artifact and cache boundaries.", "gate": "Requires an actual selected engine/build, suitable resources and its observed runtime architecture. Source and fixture work cannot prove native isolation.", "optional": true },
+    { "name": "Security program ownership", "label": "Optional senior scope", "scope": "Technical evidence + M22/M25/M26/M30/M35/M36 → M40", "description": "Accountable decisions, maintenance and recurrence prevention across products after reviewable technical work.", "gate": "Simulated program records remain labeled. Real program ownership needs actual responsibilities, stakeholders and sustained operating evidence.", "optional": true }
+  ],
+  "depths": [
+    { "name": "Deep", "description": "Trace a selected mechanism, predict outcomes, reproduce when feasible, review the control and transfer the principle. Stop at the declared reviewable boundary." },
+    { "name": "Working", "description": "Use a selected component safely and validate a known outcome plus a legitimate or negative control." },
+    { "name": "Reference", "description": "Explain when a component fits, what evidence it offers and its prerequisites. Installation is not required." }
+  ],
+  "queueNote": "Plan one active primary assignment. When a runtime prerequisite is blocked, continue useful source/design work and keep runtime conclusions unverified.",
+  "focusAreas": [
+    { "title": "AI application authorization and privacy", "description": "Caller-to-object authority, revocation and minimizing data at model, tool and log boundaries.", "missions": ["M01", "M02", "M05", "M06", "M10"] },
+    { "title": "RAG ingestion, retrieval and data lifecycle", "description": "Provenance, access filters, context ownership, deletion and policy-aware restoration.", "missions": ["M03", "M08", "M09", "M17", "M28"] },
+    { "title": "MCP, agent permissions and secure tool execution", "description": "Identity-bound tools, exact action approval, least privilege and independently enforced stop.", "missions": ["M11", "M12", "M13", "M14", "M27", "M34"] },
+    { "title": "Prompt-injection and security regression evaluation", "description": "Hostile input measured at the consequential boundary, with validated scoring and legitimate controls.", "missions": ["M15", "M16", "M24", "M35"] },
+    { "title": "Secure delivery, telemetry and incident recovery", "description": "Versioned controls, privacy-aware events, reconciliation, safe rollback and reproducible handover.", "missions": ["M21", "M22", "M25", "M26", "M29", "M30"] }
+  ],
+  "skills": [
+    { "name": "Python", "description": "Source reasoning, bounded helpers and synthetic fixtures.", "missions": ["M01", "M02", "M03", "M35"] },
+    { "name": "HTTP / API security", "description": "Request authority, ownership, filters and outbound policy.", "missions": ["M02", "M06", "M12", "M14"] },
+    { "name": "Git", "description": "Source pins, reviewed changes and reproducible history.", "missions": ["M01", "M21", "M29", "M30"] },
+    { "name": "Authentication / OAuth", "description": "Sessions, audience, consent and revoked grants.", "missions": ["M06", "M10", "M11", "M12"] },
+    { "name": "Docker & configuration", "description": "Effective settings, runtime contracts and image identity.", "missions": ["M04", "M18", "M19", "M21", "M29"] },
+    { "name": "RAG", "description": "Ingestion, authorized retrieval and derived-copy lifecycle.", "missions": ["M03", "M08", "M09", "M17", "M28"] },
+    { "name": "MCP", "description": "Inbound/outbound identity and tool-service authority.", "missions": ["M11", "M12", "M13", "M34"] },
+    { "name": "Threat modeling", "description": "Product needs, trust boundaries and adverse outcomes.", "missions": ["M01", "M13", "M15", "M34"] },
+    { "name": "Evaluation", "description": "Ground truth, valid trials and security/utility tradeoffs.", "missions": ["M24", "M31", "M33", "M35"] },
+    { "name": "Security reporting", "description": "Finding classification, limitations, retesting and handover.", "missions": ["M22", "M26", "M30", "M40"] }
+  ]
+}

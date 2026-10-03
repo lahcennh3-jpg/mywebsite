@@ -1,0 +1,32 @@
+{
+  "name": "Ahmed Amhdour",
+  "shortName": "Ahmed",
+  "title": "AI Security Engineer",
+  "eyebrow": "Personal portfolio · 2026 and beyond",
+  "description": "Working toward securing AI applications, RAG systems and tool-using agents through practical learning and evidence-based security engineering.",
+  "about": "I’m Ahmed, an aspiring AI Security Engineer focused on AI Application & Product Security. My goal is to develop the skills to protect AI applications, retrieval-augmented generation systems and tool-using agents. My learning plan emphasizes authorization, data privacy, prompt injection, secure tool execution, security evaluation and reliable operations. I aim to turn this work into reproducible case studies that explain the problem, the control, the evidence and the remaining limitations.",
+  "aboutHeading": "Building understanding. Making evidence visible.",
+  "specialties": ["AI Application & Product Security", "RAG security", "Agent security"],
+  "approach": [
+    { "title": "Understand the problem", "description": "Trace the product need, identities, data flows and authority boundaries." },
+    { "title": "Design the control", "description": "Define permitted, denied and failure cases at the responsible service." },
+    { "title": "Produce the evidence", "description": "Plan reproducible checks that preserve legitimate behavior." },
+    { "title": "Explain the limits", "description": "Record unanswered questions, review needs and transfer conditions." }
+  ],
+  "contact": {
+    "heading": "Let’s talk about secure AI.",
+    "description": "I’m interested in conversations with recruiters, hiring managers, mentors and technical collaborators about AI application security and evidence-led learning.",
+    "github": "https://github.com/lahcennh3-jpg",
+    "email": null,
+    "linkedin": null,
+    "resume": null,
+    "photo": null,
+    "photoAlt": null
+  },
+  "metadata": {
+    "title": "Ahmed Amhdour | AI Security Engineer",
+    "description": "Ahmed Amhdour’s AI security learning portfolio: planned case studies in AI application authorization, secure RAG, agent permissions and evidence-based evaluation.",
+    "canonicalUrl": null,
+    "socialImage": null
+  }
+}
