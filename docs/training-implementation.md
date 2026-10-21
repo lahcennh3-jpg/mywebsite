@@ -19,6 +19,9 @@ The existing dependency-free Node.js generator now produces four training routes
 | `tests/content.test.mjs` | Adds workshop status, identity, agenda, completeness and profile-reference guards. |
 | `tests/routes.test.mjs` | Exercises existing and new routes, direct refresh, redirects, assets and contact limitations at both `/mywebsite/` and `/`. |
 | `tests/site-enhancements.test.mjs` (new) | Checks optional print behavior and clipboard success, absence and denial using a small simulated browser API surface. |
+| `qa/browser/` (follow-up addition) | Isolated, lockfile-pinned Chromium/axe test package, loopback HTTP verification script and instructions. It does not add dependencies to the generator or root Node tests. |
+| `.github/workflows/pages.yml` (follow-up change) | Adds the browser job, screenshot/PDF/report artifact and browser-success dependency before deployment. Existing publishing conditions and default paths remain. |
+| `.gitignore` (follow-up change) | Excludes generated browser-QA results; package-manager dependencies remain ignored. |
 | `README.md` | Documents training editing, contact limits, routes and current hosting findings. |
 | `docs/content-sources.md` | Records supplied planning inputs and separates legacy C/M identifiers from the v7.1 roadmap. |
 | `docs/verification.md` | Links this update and labels the older verification record as historical. |
@@ -82,17 +85,27 @@ The route suites build and run the static checker at each prefix. The static che
 
 ## Print, mobile and accessibility results
 
-The initial verification record below predates the follow-up CI browser job in `qa/browser/`. Its current execution result will be recorded after that job runs. The new job tests Chromium over runner-local HTTP without publishing the website; it does not depend on the remote browser's access to scratch files.
+The follow-up [GitHub CI run 39584240480](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584240480), for PR head `284e525c3cf3f311f42d9497b79ec4e633b23229`, completed successfully. Its Node build/check job and isolated browser job both passed; deployment was skipped. The browser runner used Node `v22.23.3` and Chromium `151.0.7922.34`, with Playwright `1.62.1` and axe `4.13.0` pinned by the isolated QA package and lockfile.
 
-The generated HTML and actual print stylesheet were rendered to A4 PDF using WeasyPrint 70.0 solely for layout QA, then rasterized with Poppler and visually inspected. The trainer profile fits one page; the proposed syllabus fits four pages, one per workshop. This checks a PDF rendering engine, not a browser print dialog. Browser pagination may differ.
+The test served the actual generated site on ephemeral loopback HTTP ports, with external browser requests blocked. It did not publish a preview or use a replacement website. The earlier remote-browser/local-file limitation was not bypassed; the repository's normal CI executed the browser tests in its own runner.
 
-The first print review found an unnecessary fifth syllabus page and an overly wide status badge. Print spacing and inline badge styling were corrected. The final print inspection checked legibility, table wrapping, workshop boundaries and the profile’s current-scope labels.
+| Browser check | Result |
+| --- | --- |
+| Overall | **99 checks passed, zero failed**, separate from the 25 Node tests. |
+| Routing | Home, all eight original case studies, mission/publication pages and four training pages loaded directly and on refresh at both `/mywebsite/` and `/`. |
+| Layout/reflow | Home and all four training routes checked at 320, 390, 768 and 1440 CSS pixels, at both bases. Measured document width matched viewport width in each case; no page-wide horizontal overflow was found. |
+| Keyboard and navigation | Menu Enter/Escape behavior, focus return, Training navigation, skip-link focus and workshop disclosure passed. |
+| Progressive enhancement | Navigation and syllabus content remained available with JavaScript disabled. |
+| Clipboard | A real granted-permission copy matched the visible outline. A separate simulated denial displayed the manual-copy fallback. Neither case sent a message. |
+| Automated accessibility | Ten axe scans: home and four training routes at 390px and 1440px, using selected WCAG 2 A/AA and 2.1 A/AA rules. Zero automatic violations. The home scans each retained manual-review results for `aria-prohibited-attr` and `color-contrast`; the four training routes had no incomplete rules. |
+| Chromium print output | Tagged A4 PDFs: trainer profile one page; proposed syllabus four pages. Print controls and site navigation were hidden by the actual print CSS. |
+| Console/network | No captured browser console errors, page errors or failed requests. |
 
-Semantic landmarks, a skip link, one h1 per page, native details/summary controls, table captions/column headers, visible focus styles and status feedback are present. Responsive CSS provides a single-column workshop layout below 760px and retains the existing mobile navigation behavior. Automated checks verify structure and routes; they do not establish accessibility conformance.
+[Saved CI evidence](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584240480/artifacts/12338567575) contains the JSON report, four desktop/narrow-viewport screenshots and two Chromium PDFs. The downloaded artifact's SHA-256 matched the upload digest `692824d2e512f2ac0c0f683c370ad332734decd69e81df0cd2c5bd7eb3fa61d2`. The screenshots and every PDF page were visually inspected. The artifact retention is 14 days; the committed test script allows reproduction after expiry.
 
-**Not browser-verified:** desktop/mobile screenshots, viewport overflow, zoom, keyboard focus, screen-reader behavior, contrast scanning, actual clipboard permissions and browser print output. The available remote browser could not reach the local preview (`ERR_CONNECTION_REFUSED`), and the attempted official local Chromium download returned an unusable archive. Those are test-environment blockers; no browser/mobile pass is claimed. WeasyPrint does not implement the site’s viewport media queries, so its print results are not mobile layout evidence.
+The initial WeasyPrint review had already corrected an unnecessary fifth syllabus page and an overly wide status badge. The subsequent Chromium PDFs confirmed the one/four-page layouts with readable text, wrapped tables and no clipped content in the inspected output.
 
-Before publication, check 320px, 390px, 768px and 1440px viewports; open/close the menu by keyboard, use Escape, follow Training from every page, expand outcomes, test JavaScript-disabled navigation, try clipboard success/denial, and print the two documents. Confirm no clipped or overflowing content and usable focus at 200% zoom.
+**Remaining verification limits:** browser zoom at 200%, manual resolution of the two homepage axe review rules, screen-reader use, Firefox/Safari, physical phones/tablets and native OS print dialogs were not verified. Narrow Chromium viewports are CSS-layout evidence, not physical-device testing. Passing automated scans is not full accessibility conformance or a security assessment.
 
 ## Custom-domain and deployment findings
 
@@ -126,7 +139,7 @@ Feature branch: [`feat/training-workshops-portfolio`](https://github.com/lahcenn
 Publication blockers and remaining decisions:
 
 1. Confirm the production hosting project and domain-to-repository/commit mapping. Resolve the disabled-Pages configuration only if Pages is the chosen host and the change is authorized.
-2. Review the feature pull request and its CI result; complete real-browser mobile, keyboard, zoom and print checks.
+2. Review the feature pull request and the passing Node/Chromium CI evidence. Resolve the documented manual homepage accessibility checks and inspect 200% browser zoom before making a full accessibility claim.
 3. Confirm a reliable private contact destination before configuring message submission.
 4. Agree workshop language, dates, fees, group size, equipment and accessibility needs. Prepare the listed materials and have a host review the syllabus and facilitator readiness before scheduling delivery.
 5. Add future learning achievements only with scoped evidence and the existing publication gates. Keep the v7.1 roadmap separate unless an explicit evidence-backed mapping is later supplied.

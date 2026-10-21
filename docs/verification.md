@@ -2,7 +2,7 @@
 
 This file records implementation checks, not AI-security mission results. All C01–C08 case studies remain Planned.
 
-**October 21, 2026 update:** the training addition now has 25 passing tests, direct route checks at both deployment prefixes, and print-layout inspection. The current results and browser/mobile limitations are in [training-implementation.md](training-implementation.md). The October 3 record below is historical and does not verify the new training pages in a browser.
+**October 21, 2026 update:** the training addition has 25 passing Node tests and 99 passing Chromium browser checks, including narrow layouts, keyboard/menu behavior, clipboard handling, no-JavaScript access, automated axe scans and browser PDF output at both deployment prefixes. [The browser CI run](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584240480) passed; deployment was skipped. The current evidence, manual-review limits and Vercel team-access blocker are in [training-implementation.md](training-implementation.md). Everything below this update is the historical October 3 record; its browser limitations do not describe the follow-up Chromium CI result.
 
 Recorded on October 3, 2026. Local runtime: Node.js v24.19.0. The project declares Node 22+; the GitHub workflow selects Node 22. There are no third-party build/runtime dependencies.
 
