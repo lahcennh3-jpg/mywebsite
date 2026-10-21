@@ -53,6 +53,17 @@ for (const p of data.projects) {
   if (!p.review && page.includes('<h2>Recorded review</h2>')) errors.push(`${p.id}: unavailable review rendered`);
 }
 const serialized = [...documents.values()].join('\n');
+for (const route of ['training', 'training/trainer-profile', 'training/syllabus', 'training/contact']) {
+  const page = documents.get(path.join(dist, route, 'index.html'));
+  if (!page) { errors.push(`${route}: static training index missing`); continue; }
+  if (!page.includes('Training & Workshops')) errors.push(`${route}: training navigation missing`);
+}
+const trainingPage = documents.get(path.join(dist, 'training', 'index.html')) || '';
+const syllabus = documents.get(path.join(dist, 'training', 'syllabus', 'index.html')) || '';
+for (const w of data.training.workshops) {
+  if (!trainingPage.includes(`id="${w.slug}"`) || !trainingPage.includes(`>${w.status}</span>`)) errors.push(`${w.id}: workshop proposal missing`);
+  if (!syllabus.includes(`id="${w.id}"`)) errors.push(`${w.id}: printable syllabus missing`);
+}
 if (!data.profile.contact.email && serialized.includes('mailto:')) errors.push('Unprovided email rendered');
 if (!data.profile.contact.linkedin && serialized.includes('linkedin.com')) errors.push('Unprovided LinkedIn rendered');
 if (!data.profile.contact.resume && serialized.includes('>Résumé</a>')) errors.push('Unprovided résumé rendered');

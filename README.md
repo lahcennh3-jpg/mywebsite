@@ -51,6 +51,21 @@ The site supports separate **Planned case studies** and **Completed studies** vi
 
 Catalog starter-recipe checks support preparation; they are not Ahmed’s independent achievements. Keep C04 native prerequisites unresolved until actual evidence settles them. C06 remains an optional model-security specialty. C08 is the planned Section 17 synthetic support-summary action, not an implemented native Onyx feature.
 
+## Training & Workshops
+
+The portfolio remains the primary focus. A secondary homepage link and the **Training & Workshops** navigation item lead to four explicitly proposed beginner workshops for educational partners in Agadir:
+
+- `training/`: workshop overview and proposed learning outcomes.
+- `training/trainer-profile/`: printable profile with career objective, teaching interest and referenced learning scope.
+- `training/syllabus/`: printable outcomes, prerequisites, timed agendas, materials to prepare and scope for W01–W04.
+- `training/contact/`: host discussion checklist, copyable enquiry outline and the existing GitHub profile link.
+
+Workshop content lives in `content/training.json`. Validation requires unique Wxx IDs and safe slugs, **Proposed** status, beginner labeling, outcomes, prerequisites, materials, contact limitations, and positive agenda minutes that sum to the proposed duration. Delivered-course claims need a future evidence model; changing a status is intentionally insufficient.
+
+Print pages work with the browser’s Print menu, including with JavaScript disabled. Optional buttons open the print dialog or copy the visible enquiry outline. Clipboard denial has a manual-copy fallback. The contact page does not send or store messages. No email, LinkedIn profile, résumé, form backend, affiliation or teaching history has been added.
+
+The original **C01–C08 / M01–M40** records remain unchanged. The attached v7.1 **F01–F17** roadmap is separate and is not imported or mapped by this feature. See [content provenance](docs/content-sources.md) and the [implementation and verification report](docs/training-implementation.md).
+
 ## Deployment
 
 ### GitHub Pages
@@ -65,7 +80,7 @@ The workflow `.github/workflows/pages.yml` checks pull requests and deploys succ
 
 The default asset and navigation prefix is **`/mywebsite/`**. Project pages are actual `projects/<slug>/index.html` files, so direct navigation and refresh do not need an SPA fallback or a custom `404` rewrite. A real `404.html` is included for missing pages.
 
-The repository was empty and reported `has_pages: false` at initial inspection. No live URL is claimed by this README; confirm the workflow and public response after an actual deployment.
+The repository was empty and reported `has_pages: false` at initial inspection. A repeated read on October 21, 2026 still reported `has_pages: false`; the latest `main` Pages run failed at **Configure Pages** after its build checks passed. `https://www.amhdour.cv/` responded with different page content and Vercel response headers; its `/training/` route returned HTTP 404. The scoped Vercel connection still returns HTTP 403 for `amhdour1s-projects`. I cannot confirm that this domain serves this repository. The request also named a separate `myportfolio` repository; this implementation follows the supplied `mywebsite` URL and matching architecture. Do not switch the default prefix, canonical URL, hosting or DNS based only on the domain's public response. The [deployment findings](docs/training-implementation.md#custom-domain-and-deployment-findings) include the exact limits and publication decisions.
 
 Official deployment references: [custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and [publishing-source configuration](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
@@ -83,10 +98,11 @@ Serve `dist/` from the chosen prefix with directory `index.html` support. Use HT
 
 ## Verification
 
-- `npm run validate`: content completeness, eight mission mappings, 40 stable IDs, safe URLs and required publication/evidence metadata.
-- `npm test`: meaningful claim guards (unverified completion, classification, independent review, permission, mapping drift and undefined denominators).
+- `npm run validate`: content completeness, eight mission mappings, 40 stable IDs, proposed workshops, safe URLs and required publication/evidence metadata.
+- `npm test`: claim guards, workshop validation, print/clipboard API fallbacks and direct route/refresh checks at both `/mywebsite/` and `/`.
 - `npm run build`: deterministic dependency-free static rendering.
 - `npm run check`: every local link, fragment and asset; real project files; headings, metadata and hidden unavailable personal/result fields.
+- Optional Chromium layout, keyboard, clipboard, print and axe checks live in the isolated [qa/browser](qa/browser/README.md) package. CI installs its pinned QA dependencies separately; the generator and ordinary Node checks remain dependency-free. The browser job serves only a loopback build and does not deploy a preview.
 - Desktop/mobile visual and interaction QA is recorded in [docs/verification.md](docs/verification.md). Local checks do not prove a remote deployment exists.
 
 Accessibility includes semantic landmarks/headings, keyboard-operable navigation and native disclosures, focus indicators, skip navigation, reduced motion and a no-JavaScript fallback. A cyan functional boundary diagram replaces an unprovided profile photo and is explicitly conceptual.

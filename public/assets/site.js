@@ -29,6 +29,26 @@ document.addEventListener('click', event => {
 });
 window.matchMedia('(min-width: 901px)').addEventListener('change', () => setMenu(false));
 
+for (const button of document.querySelectorAll('[data-print]')) {
+  button.hidden = false;
+  button.addEventListener('click', () => window.print());
+}
+for (const button of document.querySelectorAll('[data-copy-target]')) {
+  if (!navigator.clipboard?.writeText) continue;
+  button.hidden = false;
+  button.addEventListener('click', async () => {
+    const content = document.getElementById(button.dataset.copyTarget);
+    const status = button.parentElement.querySelector('[role="status"]');
+    if (!content || !status) return;
+    try {
+      await navigator.clipboard.writeText(content.textContent);
+      status.textContent = 'Enquiry outline copied. No message has been sent.';
+    } catch {
+      status.textContent = 'Copy is unavailable. Select the outline and copy it with your browser.';
+    }
+  });
+}
+
 const viewControls = [...document.querySelectorAll('[data-view]')];
 const studyViews = [...document.querySelectorAll('[data-study-view]')];
 function selectView(view, moveFocus = false) {
