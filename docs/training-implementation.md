@@ -2,6 +2,10 @@
 
 Recorded: October 21, 2026. Repository: [lahcennh3-jpg/mywebsite](https://github.com/lahcennh3-jpg/mywebsite). Inspected `main`: `35e7ab2a74916a7ce2ba120daa58378a0d5bb436`.
 
+The repeated implementation request was checked against the existing [draft PR #4](https://github.com/lahcennh3-jpg/mywebsite/pull/4), at `516f482ed4a7249e3f847f9dbf3a59463d550c65`. The source changes were already present there, so this follow-up reuses that feature branch and refreshes its verification and deployment findings. No duplicate website or pull request was created.
+
+The request contains conflicting repository names. The supplied confirmed URL points to `mywebsite`, whose `main` contains the specified `content/profile.json`, `content/projects.json`, `scripts/content.mjs` and Pages workflow. A separate repository, [`lahcennh3-jpg/myportfolio`](https://github.com/lahcennh3-jpg/myportfolio), also exists, but its inspected tree uses `data/portfolio.json` and `src/layout.html`. The implementation therefore follows the supplied URL and matching architecture in `mywebsite`; the separate `myportfolio` repository was only inspected and was not modified. This does not settle the production domain assignment.
+
 The existing dependency-free Node.js generator now produces four training routes alongside the portfolio. No framework or runtime dependency was added. All eight C01–C08 case studies remain Planned, with their original URLs, M01–M40 mappings and publication gates.
 
 ## Files created and modified
@@ -61,13 +65,15 @@ The attached v7.1 F01–F17 roadmap is not imported into the case-study data or 
 
 The only configured contact destination remains [Ahmed’s GitHub profile](https://github.com/lahcennh3-jpg). The training route provides an enquiry outline and preparation checklist. It has no form, storage or submission endpoint. Copying the outline does not send a message or book a workshop. A GitHub profile is not a guaranteed private messaging channel; this is stated on the page.
 
-Missing clipboard support leaves the visible outline available for manual selection. A rejected clipboard request reports that manual copying is needed. The optional print control invokes the browser print dialog only when clicked; the browser’s native Print menu remains available without JavaScript. Unit checks cover these branches; a real-browser interaction check remains outstanding.
+Missing clipboard support leaves the visible outline available for manual selection. A rejected clipboard request reports that manual copying is needed. The optional print control invokes the browser print dialog only when clicked; the browser’s native Print menu remains available without JavaScript. Unit checks and Chromium CI cover the stated clipboard and progressive-enhancement behavior. The native OS print dialog remains outside the verified results; the generated Chromium PDF layout was checked separately.
 
 No email, LinkedIn, phone number, messaging backend or résumé was inferred from the different public domain content. A reliable direct contact method must be explicitly confirmed before adding private enquiry submission.
 
 ## Build and test evidence
 
 Local runtime: Node.js `v24.19.0`, npm `11.9.0`. The project declares Node 22+ and existing CI uses Node 22; the local run does not substitute for the remote CI result on the feature commit.
+
+All commands in the following table were rerun successfully during this follow-up on the existing PR head `516f482`. The data-preservation check also compared `content/projects.json`, `content/missions.json`, `content/learning.json`, `content/source.json` and the root `package.json` directly against `main` and found no changes.
 
 | Command / check | Observed result |
 | --- | --- |
@@ -85,7 +91,7 @@ The route suites build and run the static checker at each prefix. The static che
 
 ## Print, mobile and accessibility results
 
-The follow-up [GitHub CI run 39584240480](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584240480), for PR head `284e525c3cf3f311f42d9497b79ec4e633b23229`, completed successfully. Its Node build/check job and isolated browser job both passed; deployment was skipped. The browser runner used Node `v22.23.3` and Chromium `151.0.7922.34`, with Playwright `1.62.1` and axe `4.13.0` pinned by the isolated QA package and lockfile.
+The latest inspected [GitHub CI run 39584857770](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584857770), for PR head `516f482ed4a7249e3f847f9dbf3a59463d550c65`, completed successfully. Its Node build/check job and isolated browser job both passed; deployment was skipped. The job status, browser log and downloaded evidence archive were read during this follow-up. The browser runner used Node `v22.23.3` and Chromium `151.0.7922.34`, with Playwright `1.62.1` and axe `4.13.0` pinned by the isolated QA package and lockfile. No new local Chromium run is claimed; these browser results came from the identified GitHub runner.
 
 The test served the actual generated site on ephemeral loopback HTTP ports, with external browser requests blocked. It did not publish a preview or use a replacement website. The earlier remote-browser/local-file limitation was not bypassed; the repository's normal CI executed the browser tests in its own runner.
 
@@ -101,7 +107,7 @@ The test served the actual generated site on ephemeral loopback HTTP ports, with
 | Chromium print output | Tagged A4 PDFs: trainer profile one page; proposed syllabus four pages. Print controls and site navigation were hidden by the actual print CSS. |
 | Console/network | No captured browser console errors, page errors or failed requests. |
 
-[Saved CI evidence](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584240480/artifacts/12338567575) contains the JSON report, four desktop/narrow-viewport screenshots and two Chromium PDFs. The downloaded artifact's SHA-256 matched the upload digest `692824d2e512f2ac0c0f683c370ad332734decd69e81df0cd2c5bd7eb3fa61d2`. The screenshots and every PDF page were visually inspected. The artifact retention is 14 days; the committed test script allows reproduction after expiry.
+[Saved CI evidence](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/39584857770/artifacts/12339153185) contains the JSON report, four desktop/narrow-viewport screenshots and two Chromium PDFs. The downloaded artifact's SHA-256 matched the upload digest `5cf779407931db3d9280e60d6a078c3defdaab68e8f2807373437ae481d63a07`. All four screenshots and every PDF page were visually inspected again during this follow-up; no clipping or overlapping content was found in the inspected output. Poppler confirmed tagged A4 output with one profile page and four syllabus pages. The artifact retention is 14 days; the committed test script allows reproduction after expiry.
 
 The initial WeasyPrint review had already corrected an unnecessary fifth syllabus page and an overly wide status badge. The subsequent Chromium PDFs confirmed the one/four-page layouts with readable text, wrapped tables and no clipped content in the inspected output.
 
@@ -117,16 +123,17 @@ Read-only observations on October 21, 2026:
 | [Latest inspected main publishing run](https://github.com/lahcennh3-jpg/mywebsite/actions/runs/37137732141) | Validation, tests, build and link checks succeeded; **Configure Pages** failed; artifact upload and deploy were skipped. | The inspected main workflow did not publish a Pages deployment. |
 | [GitHub Pages public URL](https://lahcennh3-jpg.github.io/mywebsite/) | HTTP 404. The public Pages API endpoint also returned 404; the GitHub connector does not expose an authenticated Pages settings endpoint. | No working Pages site was observed at the default project URL. Exact custom-domain Pages settings could not be read. |
 | [Intended www domain](https://www.amhdour.cv/) | HTTP 200 via the available network proxy, with an `x-vercel-id` response header. Content lacked this repository’s C01/M01 markers and current hero. | A different public page was observed with Vercel-serving indicators. This does not establish which repository or commit serves it. |
-| [Apex domain](https://amhdour.cv/) | The read followed a redirect and ended at the www domain with HTTP 200 and the same response-body SHA-256. | The observed apex route resolves to the same public content. |
+| [Apex domain](https://amhdour.cv/) | HTTP 308 redirect to the www domain, followed by HTTP 200. | The observed apex route redirects to the www site. |
+| [Public training route](https://www.amhdour.cv/training/) | HTTP 404, with `x-vercel-error: NOT_FOUND`. | The requested training page is not published at the intended URL in this observation. |
 | Repository’s stored Vercel homepage | HTTP 404. | The stored URL was not verified as a working site. |
 | [Google DNS-over-HTTPS NS query](https://dns.google/resolve?name=amhdour.cv&type=NS) | `ns1.vercel-dns.com.` and `ns2.vercel-dns.com.` | The public resolver returned Vercel nameservers for the zone. |
-| [www A query](https://dns.google/resolve?name=www.amhdour.cv&type=A) | `64.29.17.1`, `216.198.79.65`; the CNAME query had no Answer record. | Resolver observations only, not recommendations or proof of a project connection. |
-| [Apex A query](https://dns.google/resolve?name=amhdour.cv&type=A) | `64.29.17.65`, `64.29.17.1`. | Resolver observations only; no DNS changes made. |
-| Selected Vercel connection, initial inspection | Repository-filtered and project-name searches returned no matching project in the available default scope; team listing returned none. Domain inspection returned `serviceType: external`, `configuredBy: http`, `misconfigured: false`, `ipStatus: required-change`. | No accessible control-plane project/commit mapping was confirmed. Differing provider fields do not justify applying DNS recommendations. |
+| [www A query](https://dns.google/resolve?name=www.amhdour.cv&type=A) | Latest read: `64.29.17.65`, `64.29.17.1`; the CNAME and AAAA queries had no Answer records. | Resolver observations only, not recommendations or proof of a project connection. |
+| [Apex A query](https://dns.google/resolve?name=amhdour.cv&type=A) | Latest read: `64.29.17.1`, `216.198.79.1`; the AAAA query had no Answer records. | Resolver observations only; no DNS changes made. |
+| Selected Vercel connection, repeated inspection | Team listing returned `teams: []`. Listing projects with explicit scope `amhdour1s-projects` returned HTTP 403: not authorized for that scope. | The current connection still cannot verify that team's domain-to-project-to-Git mapping. |
 
-A subsequent unfiltered project listing returned a project named `myportfolio` under team `team_wjCz17vPO6RUSB6mvpE0vDnr` (`amhdour1s-projects`). Reads of that project's configuration, domains and deployments returned **403: missing team access**. A direct read of `amhdour.cv` also returned 403. The listing does not establish that this project serves the domain or uses this repository. No Vercel CLI with an existing authorized session is available in the workspace. The connection needs consent/app-installation access to the target team before those read-only deployment checks can be completed; ordinary SSO sign-in would not supply the missing team grant. No credentials should be pasted into chat.
+The previous report recorded an unfiltered listing of a project named `myportfolio` under team `team_wjCz17vPO6RUSB6mvpE0vDnr` (`amhdour1s-projects`), followed by **403: missing team access** for project, domain and deployment reads. That historical listing is not treated as a newly verified project assignment. The repeated scoped request still returns 403 and explicitly requires re-authentication to that scope or credentials with access to it. No Vercel CLI executable is available in this workspace, so the documented CLI fallback cannot run. The connection needs consent/app-installation access to the target team before the remaining read-only deployment checks can be completed; ordinary SSO sign-in would not supply the missing team grant. No credentials should be pasted into chat.
 
-The public HTTP responses included an `Age` cache header of about 320,782 seconds and were obtained through the available proxy. They are response observations, not a guarantee of a fresh origin fetch or access to the domain owner’s authoritative hosting settings. Public DNS, response headers and a similar personal name cannot prove a repository-to-domain deployment link.
+The latest www HTTP response included `Age: 326825` and was obtained through the available proxy. DNS answers also differed from the earlier reads. These are observations of the resolver and HTTP response, not a guarantee of a fresh origin fetch or access to the domain owner's authoritative hosting settings. Public DNS, response headers and a similar personal name cannot prove a repository-to-domain deployment link.
 
 **Conclusion: I cannot confirm that `www.amhdour.cv` is connected to this repository’s deployment.** The code keeps `/mywebsite/` as its default base and leaves `metadata.canonicalUrl` null. No CNAME, DNS record, Pages setting, Vercel project, production workflow configuration or live website was changed. A separate root build was verified locally; it is ready for a confirmed root deployment but has not been published.
 
@@ -134,7 +141,7 @@ After the deployment owner confirms the actual project, repository, production b
 
 ## GitHub review and remaining decisions
 
-Feature branch: [`feat/training-workshops-portfolio`](https://github.com/lahcennh3-jpg/mywebsite/tree/feat/training-workshops-portfolio). Review changes against [`main`](https://github.com/lahcennh3-jpg/mywebsite/compare/main...feat/training-workshops-portfolio). The pull request supplies its actual commit and CI status; it must not be merged or deployed automatically.
+Feature branch: [`feat/training-workshops-portfolio`](https://github.com/lahcennh3-jpg/mywebsite/tree/feat/training-workshops-portfolio). Existing [draft PR #4](https://github.com/lahcennh3-jpg/mywebsite/pull/4) is reused. Review changes against [`main`](https://github.com/lahcennh3-jpg/mywebsite/compare/main...feat/training-workshops-portfolio). This follow-up changes the README and verification reports only; the identified code/browser checks cover the unchanged implementation. The pull request supplies its actual commit and CI status; it must not be merged or deployed automatically.
 
 Publication blockers and remaining decisions:
 
