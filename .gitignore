@@ -2,5 +2,6 @@ dist/
 node_modules/
 .sites-runtime/
 .qa/
+qa/browser/results/
 *.log
 .DS_Store

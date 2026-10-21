@@ -102,6 +102,7 @@ Serve `dist/` from the chosen prefix with directory `index.html` support. Use HT
 - `npm test`: claim guards, workshop validation, print/clipboard API fallbacks and direct route/refresh checks at both `/mywebsite/` and `/`.
 - `npm run build`: deterministic dependency-free static rendering.
 - `npm run check`: every local link, fragment and asset; real project files; headings, metadata and hidden unavailable personal/result fields.
+- Optional Chromium layout, keyboard, clipboard, print and axe checks live in the isolated [qa/browser](qa/browser/README.md) package. CI installs its pinned QA dependencies separately; the generator and ordinary Node checks remain dependency-free. The browser job serves only a loopback build and does not deploy a preview.
 - Desktop/mobile visual and interaction QA is recorded in [docs/verification.md](docs/verification.md). Local checks do not prove a remote deployment exists.
 
 Accessibility includes semantic landmarks/headings, keyboard-operable navigation and native disclosures, focus indicators, skip navigation, reduced motion and a no-JavaScript fallback. A cyan functional boundary diagram replaces an unprovided profile photo and is explicitly conceptual.

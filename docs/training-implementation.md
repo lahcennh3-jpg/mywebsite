@@ -24,7 +24,7 @@ The existing dependency-free Node.js generator now produces four training routes
 | `docs/verification.md` | Links this update and labels the older verification record as historical. |
 | `docs/training-implementation.md` (new) | This report. |
 
-`content/projects.json`, `content/missions.json`, `content/learning.json`, `content/source.json`, `package.json` and `.github/workflows/pages.yml` are unchanged. The generator still escapes content and uses the existing base-path and URL-validation mechanisms. No source attribution or project route was removed.
+`content/projects.json`, `content/missions.json`, `content/learning.json`, `content/source.json` and the root `package.json` are unchanged. A follow-up browser QA job now extends `.github/workflows/pages.yml`, adding a browser-check dependency before deployment while preserving its publishing conditions and build default. The generator still escapes content and uses the existing base-path and URL-validation mechanisms. No source attribution or project route was removed.
 
 ## Pages and workshop content
 
@@ -75,12 +75,14 @@ Local runtime: Node.js `v24.19.0`, npm `11.9.0`. The project declares Node 22+ a
 | `BUILD_BASE=/ npm run build` | Passed: 16 HTML pages with root-relative assets and links. |
 | `BUILD_BASE=/ npm run check` | Passed: 16 pages and 566 local links, assets and fragments. |
 | HTTP route/refresh checks | All eight existing case studies and all four training pages returned 200 on direct and repeated requests at both prefixes. Existing 301 and 404 behavior passed. |
-| Data-preservation diff | Original projects, missions, learning, source attribution data and publication workflow unchanged. |
+| Data-preservation diff | Original projects, missions, learning and source attribution data unchanged. The follow-up workflow adds isolated browser QA and a deployment check dependency. |
 | `git diff --check` | Passed: no whitespace errors. |
 
 The route suites build and run the static checker at each prefix. The static checker verifies headings, language, metadata, image alternatives, unique IDs, local fragments, unavailable-contact suppression and the absence of an unconnected form. No network-dependent package installation is needed for site build or tests. npm emitted an environment-level warning about an unknown `http-proxy` config entry; the commands still exited successfully.
 
 ## Print, mobile and accessibility results
+
+The initial verification record below predates the follow-up CI browser job in `qa/browser/`. Its current execution result will be recorded after that job runs. The new job tests Chromium over runner-local HTTP without publishing the website; it does not depend on the remote browser's access to scratch files.
 
 The generated HTML and actual print stylesheet were rendered to A4 PDF using WeasyPrint 70.0 solely for layout QA, then rasterized with Poppler and visually inspected. The trainer profile fits one page; the proposed syllabus fits four pages, one per workshop. This checks a PDF rendering engine, not a browser print dialog. Browser pagination may differ.
 
@@ -107,7 +109,9 @@ Read-only observations on October 21, 2026:
 | [Google DNS-over-HTTPS NS query](https://dns.google/resolve?name=amhdour.cv&type=NS) | `ns1.vercel-dns.com.` and `ns2.vercel-dns.com.` | The public resolver returned Vercel nameservers for the zone. |
 | [www A query](https://dns.google/resolve?name=www.amhdour.cv&type=A) | `64.29.17.1`, `216.198.79.65`; the CNAME query had no Answer record. | Resolver observations only, not recommendations or proof of a project connection. |
 | [Apex A query](https://dns.google/resolve?name=amhdour.cv&type=A) | `64.29.17.65`, `64.29.17.1`. | Resolver observations only; no DNS changes made. |
-| Selected Vercel connection | Repository-filtered and project-name searches returned no matching project in the available default scope; team listing returned none. Domain inspection returned `serviceType: external`, `configuredBy: http`, `misconfigured: false`, `ipStatus: required-change`. | No accessible control-plane project/commit mapping was confirmed. Differing provider fields do not justify applying DNS recommendations. |
+| Selected Vercel connection, initial inspection | Repository-filtered and project-name searches returned no matching project in the available default scope; team listing returned none. Domain inspection returned `serviceType: external`, `configuredBy: http`, `misconfigured: false`, `ipStatus: required-change`. | No accessible control-plane project/commit mapping was confirmed. Differing provider fields do not justify applying DNS recommendations. |
+
+A subsequent unfiltered project listing returned a project named `myportfolio` under team `team_wjCz17vPO6RUSB6mvpE0vDnr` (`amhdour1s-projects`). Reads of that project's configuration, domains and deployments returned **403: missing team access**. A direct read of `amhdour.cv` also returned 403. The listing does not establish that this project serves the domain or uses this repository. No Vercel CLI with an existing authorized session is available in the workspace. The connection needs consent/app-installation access to the target team before those read-only deployment checks can be completed; ordinary SSO sign-in would not supply the missing team grant. No credentials should be pasted into chat.
 
 The public HTTP responses included an `Age` cache header of about 320,782 seconds and were obtained through the available proxy. They are response observations, not a guarantee of a fresh origin fetch or access to the domain owner’s authoritative hosting settings. Public DNS, response headers and a similar personal name cannot prove a repository-to-domain deployment link.
 
