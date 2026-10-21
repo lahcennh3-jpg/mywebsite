@@ -59,3 +59,50 @@ test('unsafe paths and unprovided contact placeholders are rejected', () => {
   data.profile.contact.email = 'add-email-here';
   assert.throws(() => validateContent(data), /real email/);
 });
+
+test('workshop proposals cannot become delivered claims through a status edit', () => {
+  const data = fresh();
+  data.training.workshops[0].status = 'Delivered';
+  assert.throws(() => validateContent(data), /only Proposed status/);
+  data.training.workshops[0].status = 'Proposed';
+  data.training.status = 'Completed';
+  assert.throws(() => validateContent(data), /only Proposed workshops/);
+});
+test('workshop agendas need valid minutes that reconcile to the proposed duration', () => {
+  for (const minutes of [0, -5, 2.5, '20']) {
+    const data = fresh();
+    data.training.workshops[0].agenda[0].minutes = minutes;
+    assert.throws(() => validateContent(data), /positive integers/);
+  }
+  const data = fresh();
+  data.training.workshops[0].durationMinutes++;
+  assert.throws(() => validateContent(data), /must equal proposed duration/);
+});
+test('workshop URLs and identities cannot collide or escape their routes', () => {
+  const data = fresh();
+  data.training.workshops[1].slug = data.training.workshops[0].slug;
+  assert.throws(() => validateContent(data), /unique safe workshop slug/);
+  data.training.workshops[1].slug = '../contact';
+  assert.throws(() => validateContent(data), /unique safe workshop slug/);
+  data.training.workshops[1].slug = original.training.workshops[1].slug;
+  data.training.workshops[1].id = data.training.workshops[0].id;
+  assert.throws(() => validateContent(data), /unique Wxx workshop IDs/);
+});
+test('proposals require outcomes, prerequisites, materials and honest contact limitations', () => {
+  for (const field of ['outcomes', 'prerequisites', 'materials']) {
+    const data = fresh();
+    data.training.workshops[0][field] = [];
+    assert.throws(() => validateContent(data), /non-empty text list/);
+  }
+  const data = fresh();
+  data.training.contact.limitation = '';
+  assert.throws(() => validateContent(data), /contact.limitation/);
+});
+test('profile learning records require a reference and cannot bypass case-study completion gates', () => {
+  const data = fresh();
+  data.profile.learningWork[0].reference = 'javascript:alert(1)';
+  assert.throws(() => validateContent(data), /public HTTPS URL/);
+  data.profile.learningWork[0].reference = original.profile.learningWork[0].reference;
+  data.profile.learningWork[0].status = 'Completed';
+  assert.throws(() => validateContent(data), /published case study/);
+});

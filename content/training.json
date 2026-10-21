@@ -1,0 +1,129 @@
+{
+  "status": "Proposed",
+  "heading": "Training & Workshops",
+  "intro": "Beginner workshop proposals for educational partners in Agadir. Explore practical AI security ideas through simple explanations, synthetic examples and small guided activities.",
+  "location": "Agadir, Morocco",
+  "format": "Proposed in-person sessions in Agadir or remote sessions, subject to agreement with a host.",
+  "availability": "No sessions are scheduled. Dates, language, fees, group size and delivery readiness need to be agreed with the host.",
+  "audiences": ["Private training centers", "Student groups and clubs", "Educators introducing AI tools"],
+  "approach": [
+    "Begin with a plain-English explanation and a realistic use case.",
+    "Use a fictional support assistant and synthetic data for demonstrations.",
+    "Give learners one small activity before reviewing their reasoning.",
+    "End with a short checklist and the limits of what the activity demonstrates."
+  ],
+  "deliveryNote": "These are proposed introductory sessions, not delivered courses or a certification program. A host should review the syllabus, sample material and facilitator readiness before confirming a session.",
+  "contact": {
+    "heading": "Discuss an educational partnership",
+    "intro": "Use the existing GitHub profile to review Ahmed’s public work and any contact options he has chosen to make available there.",
+    "limitation": "This website has no configured email address or message form. The GitHub link opens a public profile; it does not send a message or reserve a workshop, and a private contact option may not be available.",
+    "checklist": [
+      "Training center or group name, and the learner audience",
+      "Workshop title, preferred language and prior knowledge",
+      "Suggested dates, format, group size and available equipment",
+      "Host review, accessibility needs and a reliable contact method"
+    ]
+  },
+  "workshops": [
+    {
+      "id": "W01",
+      "slug": "ai-security-foundations",
+      "title": "AI security foundations: data, identity and boundaries",
+      "status": "Proposed",
+      "level": "Beginner",
+      "durationMinutes": 90,
+      "audience": "Students and junior developers curious about AI application security.",
+      "summary": "Follow a fictional customer-support assistant from a user request to private data and an action proposal.",
+      "prerequisites": ["Basic web browsing; no programming required."],
+      "outcomes": [
+        "Identify the user, data owner and action service in a small AI workflow.",
+        "Distinguish authentication from permission to access a particular record.",
+        "Explain one place where a data or action permission must be checked."
+      ],
+      "agenda": [
+        {"minutes": 15, "title": "Use case and vocabulary", "activity": "Introduce a fictional support assistant, users, private tickets and tools."},
+        {"minutes": 25, "title": "Identity, ownership and actions", "activity": "Trace who requests information and who can authorize an effect."},
+        {"minutes": 30, "title": "Guided boundary-mapping activity", "activity": "Learners annotate a synthetic workflow with identities and permission checks."},
+        {"minutes": 20, "title": "Review and take-away checklist", "activity": "Discuss the maps, unanswered questions and what would require a real security test."}
+      ],
+      "materials": ["A slide or whiteboard workflow", "Synthetic ticket cards", "A short boundary checklist"],
+      "takeaway": "A learner-annotated workflow and a list of questions for a future security review.",
+      "scope": "A conceptual introduction using fictional data. It does not assess a live product or establish security competence."
+    },
+    {
+      "id": "W02",
+      "slug": "safer-ai-use",
+      "title": "Safer AI use for students and educators",
+      "status": "Proposed",
+      "level": "Beginner",
+      "durationMinutes": 90,
+      "audience": "Students, educators and staff beginning to use AI assistants.",
+      "summary": "Practise handling sensitive information, checking sources and deciding when human review is needed.",
+      "prerequisites": ["Basic web browsing; no AI account or paid subscription required."],
+      "outcomes": [
+        "Identify sensitive information in a fictional document before sharing it with an AI tool.",
+        "Separate a supported answer from a claim that still needs verification.",
+        "Describe when a proposed action needs a person’s review."
+      ],
+      "agenda": [
+        {"minutes": 15, "title": "Everyday AI use cases", "activity": "Introduce fictional classroom and administrative scenarios."},
+        {"minutes": 25, "title": "Privacy and source checks", "activity": "Review synthetic documents and sample AI answers without submitting real personal data."},
+        {"minutes": 30, "title": "Small-group review activity", "activity": "Learners decide what to remove, verify or escalate in a fictional example."},
+        {"minutes": 20, "title": "Discussion and personal checklist", "activity": "Review decisions and prepare a short checklist for future AI use."}
+      ],
+      "materials": ["Synthetic classroom documents", "Sample answers with source excerpts", "A privacy and verification checklist"],
+      "takeaway": "A short checklist for data sharing, source verification and human review.",
+      "scope": "An introductory practice session; institutional data policies and tool settings still need separate review."
+    },
+    {
+      "id": "W03",
+      "slug": "prompt-injection-awareness",
+      "title": "Prompt injection awareness with a controlled demo",
+      "status": "Proposed",
+      "level": "Beginner",
+      "durationMinutes": 120,
+      "audience": "Junior developers and technical students familiar with basic AI assistants.",
+      "summary": "Inspect a prepared example where a retrieved document tries to influence an assistant’s behavior.",
+      "prerequisites": ["Basic familiarity with AI assistants or the W01 introduction.", "A browser for an optional local demonstration; printed transcripts are an alternative."],
+      "outcomes": [
+        "Recognize an instruction attempt inside untrusted source material.",
+        "Distinguish a model’s proposed action from permission to execute it.",
+        "Describe a test and the evidence needed to evaluate a protective control."
+      ],
+      "agenda": [
+        {"minutes": 20, "title": "Instructions and untrusted content", "activity": "Introduce the fictional retrieval workflow and the demonstration’s scope."},
+        {"minutes": 30, "title": "Facilitator-led synthetic demo", "activity": "Compare prepared transcripts; an optional local mock needs no paid API or external target."},
+        {"minutes": 40, "title": "Learner analysis", "activity": "Learners identify the attempted boundary crossing and propose a permission check and test."},
+        {"minutes": 30, "title": "Evidence and limitations", "activity": "Review observations and distinguish a mock result from evidence about an actual model or production system."}
+      ],
+      "materials": ["Synthetic source documents", "Prepared demonstration transcripts", "A simple test-observation worksheet"],
+      "takeaway": "An annotated transcript, a proposed control and one test idea.",
+      "scope": "Only synthetic transcripts or a local mock. No testing of public services; no claim of a universal prompt-injection solution."
+    },
+    {
+      "id": "W04",
+      "slug": "linux-permissions-evidence",
+      "title": "Linux permissions and evidence for AI application labs",
+      "status": "Proposed",
+      "level": "Beginner",
+      "durationMinutes": 120,
+      "audience": "Technical beginners preparing for small AI application security labs.",
+      "summary": "Inspect a disposable sample workspace and explain file ownership, permissions and command evidence.",
+      "prerequisites": ["A browser and access to Google Cloud Shell or a local Linux terminal.", "Cloud Shell sign-in and availability should be checked by the host before scheduling; a transcript alternative can be used."],
+      "outcomes": [
+        "Distinguish a regular file from a directory in a sample workspace.",
+        "Interpret owner, group and other permission bits without claiming they explain every access-control rule.",
+        "Record an inspection command’s output and its own exit status."
+      ],
+      "agenda": [
+        {"minutes": 20, "title": "Workspace and evidence basics", "activity": "Introduce the disposable sample directory and explain command scope."},
+        {"minutes": 30, "title": "Reading file metadata", "activity": "Demonstrate type, owner, group and symbolic and numeric permissions."},
+        {"minutes": 45, "title": "Learner inspection activity", "activity": "Learners inspect sample entries and record their own command results."},
+        {"minutes": 25, "title": "Review and transfer", "activity": "Discuss evidence limits and why file access matters for an AI application’s data and credentials."}
+      ],
+      "materials": ["A disposable sample workspace", "A command evidence worksheet", "A prepared terminal transcript as a fallback"],
+      "takeaway": "A small inspection record with the learner’s explanation and command exit statuses.",
+      "scope": "Read-only inspection of sample files. No production data, credentials or permission changes are needed."
+    }
+  ]
+}

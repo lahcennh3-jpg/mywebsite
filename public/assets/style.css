@@ -400,11 +400,75 @@ p { text-wrap: pretty; }
   .portfolio-views { gap: 12px; flex-wrap: wrap; }
   .view-control { font-size: .875rem; }
 }
+.education-link { margin-top: 16px; font-size: .875rem; }
+.education-link a { color: var(--accent); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.education-link .icon { width: 16px; height: 16px; }
+.training-page { padding-block: 50px 90px; }
+.training-hero { max-width: 850px; }
+.training-hero h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); }
+.training-notice { padding: 18px 20px; border-left: 2px solid var(--accent); background: var(--surface); color: var(--muted); margin-top: 24px; }
+.training-notice strong { color: var(--text); }
+.training-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 28px; }
+.training-actions > .text-link { padding-block: 12px; }
+.training-context { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; padding-block: 42px; margin-top: 42px; border-top: 1px solid var(--line); }
+.training-context h2, .workshops-section h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+.training-context h3 { font-size: 1.25rem; }
+.training-context p { color: var(--muted); margin-top: 18px; }
+.training-list { color: var(--muted); padding-left: 24px; margin-block: 16px 0; }
+.training-list li { padding-left: 3px; margin-top: 8px; }
+.training-list li::marker { color: var(--accent); }
+.workshops-section { border-top: 1px solid var(--line); padding-top: 42px; }
+.workshop-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 30px; }
+.workshop-card { min-width: 0; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); scroll-margin-top: 140px; }
+.workshop-card h3 { margin-top: 24px; font-size: 1.5rem; line-height: 1.35; }
+.workshop-card > p { color: var(--muted); margin-top: 16px; }
+.workshop-facts { margin: 20px 0; font-size: .9375rem; }
+.workshop-facts > div + div { margin-top: 12px; }
+.workshop-facts dt { color: var(--soft); }
+.workshop-facts dd { margin: 2px 0 0; }
+.workshop-details { border-top: 1px solid var(--line); margin-bottom: 18px; }
+.workshop-details summary { color: var(--accent); padding-block: 14px; cursor: pointer; min-height: 44px; }
+.workshop-details h4 { margin-top: 16px; font-size: 1rem; }
+.workshop-details p { color: var(--muted); margin-top: 18px; font-size: .9375rem; }
+.workshop-card > .text-link { display: inline-flex; align-items: center; min-height: 44px; }
+.print-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
+.print-actions p { color: var(--soft); font-size: .875rem; max-width: 440px; }
+.learning-record { margin-top: 20px; }
+.learning-record h3 { font-size: 1.1rem; line-height: 1.5; }
+.learning-record h3 .status { margin-left: 8px; }
+.learning-record p { color: var(--muted); margin-top: 12px; }
+.learning-record > a { display: inline-block; margin-top: 12px; }
+.syllabus-index { display: grid; gap: 10px; margin-top: 28px; }
+.syllabus-index a { color: var(--accent); }
+.syllabus-workshop { scroll-margin-top: 130px; }
+.syllabus-workshop h3 { font-size: 1.15rem; margin-top: 24px; }
+.syllabus-workshop > .section-label { margin-bottom: 16px; }
+.agenda-wrapper { overflow-x: auto; margin-top: 26px; }
+.agenda-table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+.agenda-table caption { color: var(--soft); text-align: left; font-size: .875rem; padding-bottom: 10px; }
+.agenda-table th, .agenda-table td { border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; padding: 12px; }
+.agenda-table th:first-child { width: 90px; }
+.agenda-table td { color: var(--muted); }
+.agenda-table td strong { color: var(--text); }
+.agenda-table td p { margin-top: 6px; }
+.enquiry-outline { white-space: pre-wrap; overflow-wrap: anywhere; font: .9375rem/1.8 ui-monospace, monospace; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 22px; margin-block: 24px; }
+.copy-status { min-height: 1.65em; }
+@media (max-width: 760px) {
+  .training-context, .workshop-grid { grid-template-columns: 1fr; gap: 28px; }
+  .training-context { margin-top: 32px; padding-block: 32px; }
+  .training-page { padding-top: 32px; }
+  .workshop-card { padding: 24px; }
+}
+@media (max-width: 360px) {
+  .training-actions { align-items: stretch; flex-direction: column; }
+  .workshop-card .card-top { flex-wrap: wrap; }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 @media print {
+  @page { size: A4; margin: 15mm; }
   :root { color: #111; background: #fff; --text: #111; --muted: #333; --soft: #444; --accent: #175654; --line: #aaa; }
   .site-header, .site-footer, .detail-aside, .hero-actions, .portfolio-views { display: none; }
   .container { width: 100%; }
@@ -412,4 +476,26 @@ p { text-wrap: pretty; }
   .detail-layout { display: block; }
   .project-card { break-inside: avoid; background: #fff; }
   .study-view[hidden] { display: block !important; }
+  .skip-link, .print-actions, .breadcrumb, .syllabus-index { display: none; }
+  .printable-page { font-size: 10pt; line-height: 1.35; }
+  .printable-page .document-page { max-width: none; padding: 0; }
+  .printable-page h1 { font-size: 26pt; }
+  .printable-page h2 { font-size: 14pt; break-after: avoid; }
+  .printable-page h3 { font-size: 11pt; break-after: avoid; margin-top: 10pt; }
+  .printable-page .document-lead { font-size: 11pt; margin-top: 10pt; }
+  .printable-page .section-label { font-size: 9pt; margin-bottom: 8pt; }
+  .printable-page .document-page > section { margin-top: 14pt; padding-top: 10pt; }
+  .printable-page .document-page p, .printable-page .training-list { margin-top: 7pt; }
+  .printable-page .training-list li { margin-top: 4pt; }
+  .printable-page .status { display: inline-block; color: #175654; background: #fff; border-color: #777; font-size: 9pt; }
+  .printable-page .learning-record { margin-top: 8pt; }
+  .syllabus-workshop { break-before: page; }
+  .syllabus-workshop:first-of-type { break-before: auto; }
+  .agenda-wrapper { overflow: visible; margin-top: 12pt; }
+  .agenda-table { font-size: 9pt; }
+  .agenda-table th, .agenda-table td { padding: 6pt; }
+  .agenda-table caption { font-size: 9pt; }
+  .agenda-table tr { break-inside: avoid; }
+  .printable-page .syllabus-next { break-inside: avoid; margin-top: 6pt; padding-top: 6pt; font-size: 9pt; }
+  .syllabus-next h2 { display: none; }
 }

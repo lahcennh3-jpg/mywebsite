@@ -2,14 +2,14 @@ import { mkdir, rm, writeFile, cp } from 'node:fs/promises';
 import path from 'node:path';
 import { root, loadContent, validateContent, getBasePath, isPublishedStudy } from './content.mjs';
 
-const { profile, projects, learning, missions, source } = validateContent(await loadContent());
+const { profile, projects, learning, missions, source, training } = validateContent(await loadContent());
 const base = getBasePath();
 const out = path.join(root, 'dist');
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[ch]));
 const url = route => `${base}${route}`;
 const asset = value => value.startsWith('https://') ? value : url(value);
 const labels = Object.fromEntries(source.evidenceKinds.map(kind => [kind.id, kind.label]));
-const navItems = [['home','Home'], ['about','About'], ['portfolio','Portfolio'], ['focus','Focus Areas'], ['skills','Skills'], ['journey','Learning Journey'], ['contact','Contact']];
+const navItems = [['home','Home'], ['about','About'], ['portfolio','Portfolio'], ['focus','Focus Areas'], ['skills','Skills'], ['journey','Learning Journey'], ['training','Training & Workshops'], ['contact','Contact']];
 
 const paths = {
   identity: '<circle cx="12" cy="8" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3M3 3h3M18 3h3"/>',
@@ -34,7 +34,7 @@ function contactLinks() {
   return `<div class="contact-links"><a class="button primary" href="${esc(c.github)}">${icon('github')}GitHub profile</a>${c.email ? `<a class="button secondary" href="mailto:${esc(c.email)}">Email Ahmed</a>` : ''}${c.linkedin ? `<a class="button secondary" href="${esc(c.linkedin)}">LinkedIn</a>` : ''}${c.resume ? `<a class="button secondary" href="${esc(asset(c.resume))}">Résumé</a>` : ''}</div>`;
 }
 
-function layout({ title, description, route = '', body, home = false }) {
+function layout({ title, description, route = '', body, home = false, printable = false }) {
   const canonical = profile.metadata.canonicalUrl ? `${profile.metadata.canonicalUrl}${route}` : null;
   const social = profile.metadata.socialImage ? (profile.metadata.socialImage.startsWith('https://') ? profile.metadata.socialImage : `${profile.metadata.canonicalUrl}${profile.metadata.socialImage}`) : null;
   return `<!doctype html>
@@ -59,17 +59,17 @@ function layout({ title, description, route = '', body, home = false }) {
   <link rel="stylesheet" href="${url('assets/style.css')}">
   <script src="${url('assets/site.js')}" defer></script>
 </head>
-<body${home ? ' class="home-page"' : ''}>
+<body${home ? ' class="home-page"' : printable ? ' class="printable-page"' : ''}>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="${url('#home')}" aria-label="${esc(profile.name)}, Home"><span class="brand-mark" aria-hidden="true">a<span>.</span></span><span>${esc(profile.name)}</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation"><span>Menu</span><span class="menu-glyph" aria-hidden="true"></span></button>
-      <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation">${navItems.map(([id, text]) => `<a href="${home ? `#${id}` : url(`#${id}`)}" data-section="${id}">${text}</a>`).join('')}</nav>
+      <nav id="primary-navigation" class="primary-navigation" aria-label="Primary navigation">${navItems.map(([id, text]) => id === 'training' ? `<a href="${url('training/')}"${route.startsWith('training/') ? ' aria-current="page"' : ''}>${text}</a>` : `<a href="${home ? `#${id}` : url(`#${id}`)}" data-section="${id}">${text}</a>`).join('')}</nav>
     </div>
   </header>
   <main id="main" tabindex="-1">${body}</main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="footer-name" href="${url('#home')}">${esc(profile.name)}<span>${esc(profile.title)}</span></a><p>Practical learning. Reproducible evidence.</p><a href="${esc(profile.contact.github)}">GitHub ${icon('external')}</a></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="footer-name" href="${url('#home')}">${esc(profile.name)}<span>${esc(profile.title)}</span></a><p>Practical learning. Reproducible evidence.</p><a href="${url('training/')}">Training & Workshops</a><a href="${esc(profile.contact.github)}">GitHub ${icon('external')}</a></div></footer>
 </body>
 </html>`;
 }
@@ -104,7 +104,7 @@ function homepage() {
   const completed = projects.filter(isPublishedStudy);
   const planned = projects.filter(p => !isPublishedStudy(p));
   return `<section class="hero container" id="home" aria-labelledby="home-heading">
-    <div class="hero-copy"><p class="eyebrow"><span class="eyebrow-line"></span>${esc(profile.eyebrow)}</p><h1 id="home-heading">${esc(profile.shortName)}<span class="hero-dot" aria-hidden="true">.</span></h1><p class="hero-title">${esc(profile.title)}</p><p class="hero-description">${esc(profile.description)}</p><div class="hero-actions"><a class="button primary" href="#portfolio">Explore My Portfolio</a><a class="button secondary" href="#journey">View My Learning Journey</a></div><p class="hero-note">Aspiring engineer · Evidence-led learning</p></div>
+    <div class="hero-copy"><p class="eyebrow"><span class="eyebrow-line"></span>${esc(profile.eyebrow)}</p><h1 id="home-heading">${esc(profile.shortName)}<span class="hero-dot" aria-hidden="true">.</span></h1><p class="hero-title">${esc(profile.title)}</p><p class="hero-description">${esc(profile.description)}</p><div class="hero-actions"><a class="button primary" href="#portfolio">Explore My Portfolio</a><a class="button secondary" href="#journey">View My Learning Journey</a></div><p class="hero-note">Aspiring engineer · Evidence-led learning</p><p class="education-link"><a href="${url('training/')}">Educational partnerships in Agadir ${icon('external')}</a></p></div>
     ${profile.contact.photo ? `<figure class="profile-photo"><img src="${esc(asset(profile.contact.photo))}" alt="${esc(profile.contact.photoAlt)}" width="480" height="520"></figure>` : boundaryDiagram()}
     <ul class="specialty-strip" aria-label="Primary interests">${profile.specialties.map((s, i) => `<li><span class="mono">0${i + 1}</span>${esc(s)}</li>`).join('')}</ul>
   </section>
@@ -150,6 +150,76 @@ function missionPage() {
   return `<div class="container document-page mission-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="${url('#journey')}">Learning Journey</a><span aria-hidden="true">/</span><span>Mission index</span></nav><p class="section-label">Onyx catalog / 2026-09-30</p><h1>Stable IDs.<br>Purposeful learning.</h1><p class="document-lead">${esc(learning.note)}</p><p>This index retains the catalog’s mission titles. The portfolio selects clusters; it does not require completing every specialty or following numerical order.</p><div class="mission-index">${missions.map(m => `<article id="${m.id}" class="mission-row"><a class="mission-self" href="#${m.id}">${m.id}</a><div><h2>${esc(m.title)}</h2>${m.specialty ? '<p class="mission-specialty">Optional or responsibility-dependent specialty</p>' : ''}</div><span class="status">${esc(m.status)}</span></article>`).join('')}</div><a class="button secondary" href="${url('#journey')}">Back to Learning Journey</a></div>`;
 }
 
+const textList = items => `<ul class="training-list">${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
+const trainingBreadcrumb = label => `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="${url('training/')}">Training & Workshops</a><span aria-hidden="true">/</span><span>${esc(label)}</span></nav>`;
+
+function printTools() {
+  return `<div class="print-actions"><button class="button secondary" type="button" data-print hidden>Print / Save as PDF</button><p>Use your browser’s Print menu to print this page or save it as a PDF. No account is needed.</p></div>`;
+}
+
+function workshopCard(w) {
+  return `<article class="workshop-card" id="${esc(w.slug)}" aria-labelledby="${w.id}-heading">
+    <div class="card-top"><span class="project-code">${w.id} / ${esc(w.level)}</span><span class="status">${esc(w.status)}</span></div>
+    <h3 id="${w.id}-heading">${esc(w.title)}</h3><p>${esc(w.summary)}</p>
+    <dl class="workshop-facts"><div><dt>Suggested duration</dt><dd>${w.durationMinutes} minutes</dd></div><div><dt>For</dt><dd>${esc(w.audience)}</dd></div></dl>
+    <details class="workshop-details"><summary>Learning outcomes & prerequisites</summary><h4>Proposed outcomes</h4>${textList(w.outcomes)}<h4>Before the session</h4>${textList(w.prerequisites)}<p>${esc(w.scope)}</p></details>
+    <a class="text-link" href="${url(`training/syllabus/#${w.id}`)}">Read the ${w.id} syllabus</a>
+  </article>`;
+}
+
+function trainingPage() {
+  return `<div class="container training-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="${url('#portfolio')}">Portfolio</a><span aria-hidden="true">/</span><span>Training & Workshops</span></nav>
+    <header class="training-hero"><p class="section-label">Educational partnerships / Agadir</p><h1>${esc(training.heading)}</h1><p class="document-lead">${esc(training.intro)}</p><p class="training-notice"><strong>${esc(training.status)} workshops.</strong> ${esc(training.availability)}</p>
+    <div class="training-actions"><a class="button primary" href="${url('training/contact/')}">Discuss a partnership</a><a class="button secondary" href="${url('training/trainer-profile/')}">Printable trainer profile</a><a class="text-link" href="${url('training/syllabus/')}">Printable workshop syllabus</a></div></header>
+    <section class="training-context" aria-labelledby="training-context-heading"><div><h2 id="training-context-heading">An introductory teaching proposal.</h2><p>${esc(profile.teachingInterest)}</p><p>${esc(training.format)}</p></div><div><h3>Who these sessions are for</h3>${textList(training.audiences)}</div></section>
+    <section class="workshops-section" aria-labelledby="workshops-heading"><p class="section-label">Proposed program</p><h2 id="workshops-heading">Small sessions. Practical questions.</h2><div class="workshop-grid">${training.workshops.map(workshopCard).join('')}</div></section>
+    <section class="training-context" aria-labelledby="teaching-approach-heading"><div><h2 id="teaching-approach-heading">How a session would work</h2>${textList(training.approach)}</div><div><h3>Readiness & scope</h3><p>${esc(training.deliveryNote)}</p><p>Ahmed’s primary focus remains AI security engineering. <a class="text-link" href="${url('#portfolio')}">Explore the portfolio and its current evidence status.</a></p></div></section>
+  </div>`;
+}
+
+function trainerProfilePage() {
+  return `<div class="container document-page trainer-profile">${trainingBreadcrumb('Trainer profile')}
+    <p class="section-label">Proposed introductory workshops / ${esc(training.location)}</p><h1>${esc(profile.name)}</h1><p class="document-lead">Aspiring ${esc(profile.title)} · AI Application & Product Security</p>${printTools()}
+    <section><h2>Career objective</h2><p>${esc(profile.careerObjective)}</p></section>
+    <section><h2>Teaching interest</h2><p>${esc(profile.teachingInterest)}</p></section>
+    <section><h2>Documented learning & project scope</h2>${profile.learningWork.map(item => `<article class="learning-record"><h3>${esc(item.title)} <span class="status">${esc(item.status)}</span></h3><p>${esc(item.summary)}</p><a href="${esc(item.reference)}">View repository records</a></article>`).join('')}</section>
+    <section><h2>Proposed beginner workshops</h2><ul class="training-list">${training.workshops.map(w => `<li><strong>${w.id}: ${esc(w.title)}</strong> — ${w.durationMinutes} minutes · ${esc(w.status)}</li>`).join('')}</ul><p>${esc(training.deliveryNote)}</p></section>
+    <section><h2>Contact & next step</h2><p>Public GitHub profile: <a href="${esc(profile.contact.github)}">${esc(profile.contact.github)}</a></p><p>${esc(training.contact.limitation)}</p><p>Review the proposed syllabus and <a href="${url('training/contact/')}">educational partnership checklist</a> before agreeing a session.</p></section>
+  </div>`;
+}
+
+function syllabusPage() {
+  return `<div class="container document-page syllabus-page">${trainingBreadcrumb('Proposed syllabus')}
+    <p class="section-label">Proposed beginner program / ${esc(training.location)}</p><h1>Workshop syllabus</h1><p class="document-lead">${esc(profile.name)} · Proposed introductory sessions, subject to host review.</p><p>${esc(training.availability)}</p>${printTools()}
+    <nav class="syllabus-index" aria-label="Workshop syllabuses">${training.workshops.map(w => `<a href="#${w.id}">${w.id}: ${esc(w.title)}</a>`).join('')}</nav>
+    ${training.workshops.map(w => `<section class="syllabus-workshop" id="${w.id}" aria-labelledby="syllabus-${w.id}"><p class="section-label">${w.id} / ${esc(w.status)} / ${esc(w.level)} / ${w.durationMinutes} minutes</p><h2 id="syllabus-${w.id}">${esc(w.title)}</h2><p>${esc(w.summary)}</p><p><strong>Audience:</strong> ${esc(w.audience)}</p>
+      <h3>Prerequisites</h3>${textList(w.prerequisites)}<h3>Learning outcomes</h3>${textList(w.outcomes)}
+      <div class="agenda-wrapper" role="region" aria-label="${w.id} timed agenda" tabindex="0"><table class="agenda-table"><caption>${w.id} proposed agenda — ${w.durationMinutes} minutes total</caption><thead><tr><th scope="col">Minutes</th><th scope="col">Topic & activity</th></tr></thead><tbody>${w.agenda.map(item => `<tr><td>${item.minutes}</td><td><strong>${esc(item.title)}</strong><p>${esc(item.activity)}</p></td></tr>`).join('')}</tbody></table></div>
+      <h3>Materials to prepare</h3>${textList(w.materials)}<p><strong>Learner take-away:</strong> ${esc(w.takeaway)}</p><p><strong>Scope & limits:</strong> ${esc(w.scope)}</p>
+    </section>`).join('')}
+    <section class="syllabus-next"><h2>Agree the session with a host</h2><p>${esc(training.deliveryNote)}</p><a href="${url('training/contact/')}">Educational partnership checklist and current contact option</a></section>
+  </div>`;
+}
+
+function trainingContactPage() {
+  const outline = `Educational partnership enquiry\n\nHost or group:\nWorkshop ID and title:\nLearner audience and prior knowledge:\nPreferred language:\nDates and delivery format:\nGroup size and equipment:\nAccessibility needs:\nHost review and facilitator readiness:\nReliable reply contact (share privately):`;
+  return `<div class="container document-page training-contact">${trainingBreadcrumb('Educational partnership enquiry')}
+    <p class="section-label">Proposed workshops / Contact</p><h1>${esc(training.contact.heading)}</h1><p class="document-lead">${esc(training.contact.intro)}</p><p class="training-notice">${esc(training.contact.limitation)}</p>
+    <div class="training-actions"><a class="button primary" href="${esc(profile.contact.github)}">View GitHub profile</a><a class="button secondary" href="${url('training/syllabus/')}">Review proposed syllabus</a></div>
+    <section><h2>Prepare the conversation</h2>${textList(training.contact.checklist)}<p>${esc(training.availability)}</p></section>
+    <section><h2>Enquiry outline</h2><p>Copy this outline for a contact channel agreed with Ahmed. Keep personal details out of public issues and comments. Nothing on this page sends or stores an enquiry.</p><pre class="enquiry-outline" id="enquiry-outline">${esc(outline)}</pre><button class="button secondary" type="button" data-copy-target="enquiry-outline" aria-controls="enquiry-outline" hidden>Copy enquiry outline</button><p class="copy-status" role="status" aria-live="polite"></p></section>
+    <a class="text-link" href="${url('training/')}">Back to Training & Workshops</a>
+  </div>`;
+}
+
+const trainingPages = [
+  ['training/', training.heading, training.intro, trainingPage, false],
+  ['training/trainer-profile/', 'Trainer Profile', 'Ahmed’s career objective, documented learning scope and proposed beginner workshops in Agadir.', trainerProfilePage, true],
+  ['training/syllabus/', 'Proposed Workshop Syllabus', 'Proposed beginner workshop outcomes, prerequisites, timed agendas and materials for educational partners.', syllabusPage, true],
+  ['training/contact/', training.contact.heading, 'Discuss proposed workshops using the current GitHub profile and an educational partnership checklist.', trainingContactPage, false]
+];
+
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await cp(path.join(root, 'public'), out, { recursive: true });
@@ -165,10 +235,13 @@ for (const p of projects) {
 }
 await page('publication/', layout({title: `Evidence & Publication | ${profile.name}`, description: 'How planned AI security studies become reproducible, reviewed and publication-safe portfolio evidence.', route: 'publication/', body: publicationPage()}));
 await page('missions/', layout({title: `Mission Index | ${profile.name}`, description: 'Stable M01–M40 mission IDs for Ahmed’s prerequisite-led AI security learning plan. All areas are planned learning.', route:'missions/', body: missionPage()}));
+for (const [route, title, description, render, printable] of trainingPages) {
+  await page(route, layout({ title: `${title} | ${profile.name}`, description, route, body: render(), printable }));
+}
 await writeFile(path.join(out, '404.html'), layout({title: `Page not found | ${profile.name}`, description: 'This portfolio page could not be found.', body:'<div class="container document-page"><p class="section-label">404</p><h1>Page not found.</h1><p>The link may have changed. Explore the portfolio or the mission index.</p><a class="button primary" href="'+url('#portfolio')+'">Explore the portfolio</a></div>'}));
 await writeFile(path.join(out, '.nojekyll'), '');
 if (profile.metadata.canonicalUrl) {
-  const routes = ['', ...projects.map(p => `projects/${p.slug}/`), 'publication/', 'missions/'];
+  const routes = ['', ...projects.map(p => `projects/${p.slug}/`), 'publication/', 'missions/', ...trainingPages.map(([route]) => route)];
   await writeFile(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route=>`<url><loc>${esc(profile.metadata.canonicalUrl + route)}</loc></url>`).join('')}</urlset>`);
 }
-console.log(`Built ${projects.length + 4} HTML pages with assets rooted at ${base}. No backend or browser-side content fetch is required.`);
+console.log(`Built ${projects.length + 4 + trainingPages.length} HTML pages with assets rooted at ${base}. No backend or browser-side content fetch is required.`);

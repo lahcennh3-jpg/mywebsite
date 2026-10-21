@@ -2,6 +2,8 @@
 
 This file records implementation checks, not AI-security mission results. All C01–C08 case studies remain Planned.
 
+**October 21, 2026 update:** the training addition now has 25 passing tests, direct route checks at both deployment prefixes, and print-layout inspection. The current results and browser/mobile limitations are in [training-implementation.md](training-implementation.md). The October 3 record below is historical and does not verify the new training pages in a browser.
+
 Recorded on October 3, 2026. Local runtime: Node.js v24.19.0. The project declares Node 22+; the GitHub workflow selects Node 22. There are no third-party build/runtime dependencies.
 
 | Check | Recorded result |

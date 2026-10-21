@@ -16,7 +16,7 @@ export const expectedMappings = {
 };
 
 export async function loadContent() {
-  const names = ['profile', 'projects', 'learning', 'missions', 'source'];
+  const names = ['profile', 'projects', 'learning', 'missions', 'source', 'training'];
   const files = await Promise.all(names.map(name => readFile(path.join(root, 'content', `${name}.json`), 'utf8')));
   return Object.fromEntries(names.map((name, i) => [name, JSON.parse(files[i])]));
 }
@@ -40,9 +40,51 @@ export function isPublishedStudy(project) {
   return project.status === 'Completed' && project.publication?.approved === true;
 }
 
+function requireTextList(value, label) {
+  if (!Array.isArray(value) || !value.length) throw new Error(`${label}: non-empty text list required`);
+  value.forEach(item => requireText(item, label));
+}
+
+export function validateTraining(training) {
+  if (!training || training.status !== 'Proposed') throw new Error('training: only Proposed workshops may be published without delivery evidence');
+  for (const key of ['heading', 'intro', 'location', 'format', 'availability', 'deliveryNote']) requireText(training[key], `training.${key}`);
+  for (const key of ['audiences', 'approach']) requireTextList(training[key], `training.${key}`);
+  for (const key of ['heading', 'intro', 'limitation']) requireText(training.contact?.[key], `training.contact.${key}`);
+  requireTextList(training.contact?.checklist, 'training.contact.checklist');
+  if (!Array.isArray(training.workshops) || !training.workshops.length) throw new Error('training.workshops: at least one proposal required');
+  const ids = new Set();
+  const slugs = new Set();
+  for (const w of training.workshops) {
+    if (!/^W\d{2}$/.test(w.id) || ids.has(w.id)) throw new Error('training: unique Wxx workshop IDs required');
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(w.slug) || slugs.has(w.slug)) throw new Error(`${w.id}: unique safe workshop slug required`);
+    ids.add(w.id);
+    slugs.add(w.slug);
+    if (w.status !== 'Proposed') throw new Error(`${w.id}: only Proposed status is supported without delivery evidence`);
+    if (w.level !== 'Beginner') throw new Error(`${w.id}: this introductory offer must remain labeled Beginner`);
+    for (const key of ['title', 'audience', 'summary', 'takeaway', 'scope']) requireText(w[key], `${w.id}.${key}`);
+    for (const key of ['prerequisites', 'outcomes', 'materials']) requireTextList(w[key], `${w.id}.${key}`);
+    if (!Number.isSafeInteger(w.durationMinutes) || w.durationMinutes <= 0) throw new Error(`${w.id}: positive integer duration required`);
+    if (!Array.isArray(w.agenda) || !w.agenda.length) throw new Error(`${w.id}: timed agenda required`);
+    for (const item of w.agenda) {
+      if (!Number.isSafeInteger(item.minutes) || item.minutes <= 0) throw new Error(`${w.id}: agenda minutes must be positive integers`);
+      requireText(item.title, `${w.id}.agenda.title`);
+      requireText(item.activity, `${w.id}.agenda.activity`);
+    }
+    if (w.agenda.reduce((sum, item) => sum + item.minutes, 0) !== w.durationMinutes) throw new Error(`${w.id}: agenda minutes must equal proposed duration`);
+  }
+}
+
 export function validateContent(data) {
-  const { profile, projects, learning, missions, source } = data;
+  const { profile, projects, learning, missions, source, training } = data;
   for (const key of ['name', 'shortName', 'title', 'description', 'about']) requireText(profile[key], `profile.${key}`);
+  for (const key of ['careerObjective', 'teachingInterest']) requireText(profile[key], `profile.${key}`);
+  if (!Array.isArray(profile.learningWork) || !profile.learningWork.length) throw new Error('profile.learningWork: referenced learning scope required');
+  for (const item of profile.learningWork) {
+    for (const key of ['title', 'summary']) requireText(item[key], `profile.learningWork.${key}`);
+    if (!['Planned', 'In progress'].includes(item.status)) throw new Error('profile.learningWork: completed claims require a published case study instead');
+    requirePublicUrl(item.reference, 'profile.learningWork.reference');
+  }
+  validateTraining(training);
   requirePublicUrl(profile.contact.github, 'contact.github');
   if (profile.contact.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.contact.email)) throw new Error('contact.email: valid real email required');
   if (profile.contact.linkedin) requirePublicUrl(profile.contact.linkedin, 'contact.linkedin');
